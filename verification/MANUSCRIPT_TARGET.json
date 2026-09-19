@@ -1,0 +1,15 @@
+{
+  "manuscript": "final draft0918.docx",
+  "sha256": "ad33af685eef2c137e824b1953ed3e545daf28464cbef6a1f1ac2e39f9a13953",
+  "approved_overrides": [
+    "original available-case Panel A with city inference",
+    "A1a traditional Sobel supplementary; A1b city bootstrap primary",
+    "A3 five approved interactions",
+    "A4 low versus pooled middle/high income",
+    "no old individual-cluster supplementary S1 tables"
+  ],
+  "known_numeric_corrections": {
+    "Table1_COVID_Obs": 86654,
+    "Table1_COVID_SD_rounded": 0.23
+  }
+}

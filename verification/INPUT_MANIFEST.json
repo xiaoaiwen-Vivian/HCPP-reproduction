@@ -1,0 +1,282 @@
+[
+  {
+    "configured_path": "$citybook",
+    "bytes": 27927361,
+    "sha256": "6158c719b4fc17a18a06427b4c2e3e9fa9972e8ce8d2b3d874ead6e7f0b75151"
+  },
+  {
+    "configured_path": "$covidbook",
+    "bytes": 16632656,
+    "sha256": "5b059564632c6dfce55ddb81b4ee06684d77d7a5aa5f55b63dd2aa1dae81825c"
+  },
+  {
+    "configured_path": "$harmonized/H_CHARLS_D_Data 2.dta",
+    "bytes": 136814295,
+    "sha256": "ff3b35cd1e3f708485e21158f85e9ec49ea9e53200696d838380add51b85d18b"
+  },
+  {
+    "configured_path": "$harmonizedC/H_CHARLS_C_Data.dta",
+    "bytes": 71873012,
+    "sha256": "7bcb341f08d31713b94576c726bb002293cc38eb8a14386bbdcfe09a82eaf930"
+  },
+  {
+    "configured_path": "$municipal",
+    "bytes": 238156,
+    "sha256": "882704ec2058eda1a6b558eeba9ae739972e0fc4305a6c29807030317e2e515d"
+  },
+  {
+    "configured_path": "$pm25",
+    "bytes": 148270,
+    "sha256": "c071af3d6eccd4ac9b8cb6a9fea176683abb6624f8671d282012589196758d34"
+  },
+  {
+    "configured_path": "$raw2011/Demographic_Background.dta",
+    "bytes": 3804005,
+    "sha256": "46d94759c9596b8198237c9460af2dc0550d8ef93812575826cc33279271cac0"
+  },
+  {
+    "configured_path": "$raw2011/Household_Income.dta",
+    "bytes": 20810701,
+    "sha256": "b20c3d4032318bbc9899fb9f026ddbb589b1d8ea573e18f68eec85ae2460be9e"
+  },
+  {
+    "configured_path": "$raw2011/biomarkers.dta",
+    "bytes": 12432990,
+    "sha256": "b8ab6037191d6db739019161ad7cf4816f9a8f859bcabd2f2587d461f59be715"
+  },
+  {
+    "configured_path": "$raw2011/family_information.dta",
+    "bytes": 18564607,
+    "sha256": "1417c9c59617a890c3821488f505feca0c5392cf5b1680a714e9ff5964bf32ab"
+  },
+  {
+    "configured_path": "$raw2011/family_transfer.dta",
+    "bytes": 14361757,
+    "sha256": "f8393289ce2318eaa9f231c56c7ac222c86e04259e59b595d35464c3fde1970a"
+  },
+  {
+    "configured_path": "$raw2011/health_care_and_insurance.dta",
+    "bytes": 15191459,
+    "sha256": "bb52e7e6dab3376784c8de9c05293174d00d3cb7f7720d6d6a015a96a6c524ed"
+  },
+  {
+    "configured_path": "$raw2011/health_status_and_functioning.dta",
+    "bytes": 12468160,
+    "sha256": "87bae0f7e75899ba3c844985aceaed42dd9e60483edbebc9c402d3cb866a810e"
+  },
+  {
+    "configured_path": "$raw2011/household_roster.dta",
+    "bytes": 7987776,
+    "sha256": "ad334ecf8c6252afade1fa8d4a68bd653e844fcafd56f11ea8b790fea3c123ea"
+  },
+  {
+    "configured_path": "$raw2011/housing_characteristics.dta",
+    "bytes": 547353,
+    "sha256": "0242c5fe51b5fafbdcfddfce9ea8d428e80fa32ee46f8351d51a0fa7dd4f76ee"
+  },
+  {
+    "configured_path": "$raw2011/individual_income.dta",
+    "bytes": 7609516,
+    "sha256": "06b0fa08043d42412de66de714cd82a15eca20a79a9839abd2db4d011adffedc"
+  },
+  {
+    "configured_path": "$raw2011/interviewer_observation.dta",
+    "bytes": 720843,
+    "sha256": "e263a19e0f9cf3db8d5caafc93d30fb71e801a0617045ad780e58c4787f46b5e"
+  },
+  {
+    "configured_path": "$raw2011/psu.dta",
+    "bytes": 26928,
+    "sha256": "12c708b292c0bbf08782dd7d72c9cab60602c024256c29d50259278cd8516d64"
+  },
+  {
+    "configured_path": "$raw2011/work_retirement_and_pension.dta",
+    "bytes": 18032929,
+    "sha256": "eabfa44039ea9b6f3dd87593c9ff904f8abe52a9e3c50186bbbf28c0e2e83308"
+  },
+  {
+    "configured_path": "$raw2013/Biomarker.dta",
+    "bytes": 12852952,
+    "sha256": "58f9ba16a7ec2e9b99f2b1fffe899ac6c19154a00e94592da8e09e2ed7bc0943"
+  },
+  {
+    "configured_path": "$raw2013/Demographic_Background.dta",
+    "bytes": 11192457,
+    "sha256": "869274dbd0c868561bea99f8b26104ab17b65cd9336c427cd4c79c89aa945814"
+  },
+  {
+    "configured_path": "$raw2013/Family_Information.dta",
+    "bytes": 16828477,
+    "sha256": "b6c638066c35c9e3d48a1116f6df907c54577fc11d846485c0f5d37d9882ab95"
+  },
+  {
+    "configured_path": "$raw2013/Family_Transfer.dta",
+    "bytes": 14077605,
+    "sha256": "b13478b015d6bf5219e3f82d37eb633a2254488d08a70a337d94f1ae482b7ead"
+  },
+  {
+    "configured_path": "$raw2013/Health_Care_and_Insurance.dta",
+    "bytes": 24378698,
+    "sha256": "5e613dd90d1ea727e47e14908f17230fa3896ff7cf54ddd4947e8278b4d07cba"
+  },
+  {
+    "configured_path": "$raw2013/Health_Status_and_Functioning.dta",
+    "bytes": 31859332,
+    "sha256": "8d2f3d9b9e289e614b30d011939433b8f67044585301b7f763fa4865bd7c2efe"
+  },
+  {
+    "configured_path": "$raw2013/Household_Income.dta",
+    "bytes": 33444000,
+    "sha256": "4ca7f8469429807e30b5d3b664b00962bb53bdaeef58e2722367b1815fbc06fa"
+  },
+  {
+    "configured_path": "$raw2013/Housing_Characteristics.dta",
+    "bytes": 875079,
+    "sha256": "31d1b78715b522235d523643e98fe332798d700412a59afcaf1c5409ef8cdfa8"
+  },
+  {
+    "configured_path": "$raw2013/Individual_Income.dta",
+    "bytes": 8059380,
+    "sha256": "4d6a71db4c7e1a94363142259cb5df8720d6a44de00ad224c0edabc3473d4885"
+  },
+  {
+    "configured_path": "$raw2013/PSU.dta",
+    "bytes": 30912,
+    "sha256": "424815e642834d0af27b957c76f58f02d51aed38cfe261f38ba84221f3fa023b"
+  },
+  {
+    "configured_path": "$raw2013/Work_Retirement_and_Pension.dta",
+    "bytes": 31763367,
+    "sha256": "daba14005d761a32753141b9aac756d5b5378fe07da64807386eae9341b63ccd"
+  },
+  {
+    "configured_path": "$raw2015/Biomarker.dta",
+    "bytes": 7137830,
+    "sha256": "ff26fed8998a03e3ad79ba25485d8e64b499208c73f6289fed52901a1042933c"
+  },
+  {
+    "configured_path": "$raw2015/Demographic_Background.dta",
+    "bytes": 3217566,
+    "sha256": "908707595240fa676544e1e26bebb50c13944df335571f5c2828e9663006578a"
+  },
+  {
+    "configured_path": "$raw2015/Family_Information.dta",
+    "bytes": 35411442,
+    "sha256": "22a55d4808d6b2dbccd5721d6ef7aa36f789f1a788f89dca2f61290a40248ecb"
+  },
+  {
+    "configured_path": "$raw2015/Family_Transfer.dta",
+    "bytes": 18536082,
+    "sha256": "bdbe0337258a99fbfed10e667d4f097bccbed61057defd8ad6124ab99c744e70"
+  },
+  {
+    "configured_path": "$raw2015/Health_Care_and_Insurance.dta",
+    "bytes": 17233042,
+    "sha256": "7d74e77273dfa474d4697b44e0da2145467c671d4ca9dab7840fcb0f58abf387"
+  },
+  {
+    "configured_path": "$raw2015/Health_Status_and_Functioning.dta",
+    "bytes": 28695894,
+    "sha256": "9e4dc760dd1363ba1f41d551e16fa3ae998de96d4d3796c88e95340c7c52ae5c"
+  },
+  {
+    "configured_path": "$raw2015/Household_Income.dta",
+    "bytes": 34032709,
+    "sha256": "6ed880cf1a04ae4328492f1935f457c72e885ee7faee43651b92049c123ed5d7"
+  },
+  {
+    "configured_path": "$raw2015/Housing_Characteristics.dta",
+    "bytes": 946656,
+    "sha256": "43f29e1537f46c3616aa7952caf7f6e2e37cdc0be0fe0c2b58fa015359b5bade"
+  },
+  {
+    "configured_path": "$raw2015/Individual_Income.dta",
+    "bytes": 9200563,
+    "sha256": "89e5e5b9d89f310f6e493963b697366b02e4d0556c1d435e8dc96daed5b890e9"
+  },
+  {
+    "configured_path": "$raw2018/Cognition.dta",
+    "bytes": 6131540,
+    "sha256": "f8f31143ddebb134dbfae0ecf3e88f0f9482709ad0e2561ffab1781f9ad84792"
+  },
+  {
+    "configured_path": "$raw2018/Demographic_Background.dta",
+    "bytes": 3922617,
+    "sha256": "c71e0c9072888951f0db66e40c6d45b92822f75c2429f8820618550420ca073b"
+  },
+  {
+    "configured_path": "$raw2018/Family_Transfer.dta",
+    "bytes": 23351677,
+    "sha256": "116f1fd3a61aab48783ed81c7cbaa59e7cb45d40301b42cfa6dc960d8d7449a9"
+  },
+  {
+    "configured_path": "$raw2018/Health_Care_and_Insurance.dta",
+    "bytes": 8021452,
+    "sha256": "5919d9bf9219907145a5d52884216decc80f38b12ae73175ab664a178dc4416f"
+  },
+  {
+    "configured_path": "$raw2018/Health_Status_and_Functioning.dta",
+    "bytes": 22197337,
+    "sha256": "6141804bd9ad5eb7842b03c19f1b37184d574891c6bd7dc6832f3922db0166e4"
+  },
+  {
+    "configured_path": "$raw2018/Household_Income.dta",
+    "bytes": 13721301,
+    "sha256": "5a7a7c1adb627a8bddb50cc0cf6dee94efd79af8701d34e1495697f0ba21d03e"
+  },
+  {
+    "configured_path": "$raw2018/Individual_Income.dta",
+    "bytes": 7116133,
+    "sha256": "a6bb755a86c70d2c69ead8ffee56aa8e630fd7553aedab72c5fcc2948e64317f"
+  },
+  {
+    "configured_path": "$raw2018/Pension.dta",
+    "bytes": 15247923,
+    "sha256": "f5b38fcbaf4bf27eced64f76cab6ab00e56f3ad531aa66a95d86d07ff25661d1"
+  },
+  {
+    "configured_path": "$raw2018/Work_Retirement.dta",
+    "bytes": 11226136,
+    "sha256": "beb77e67b85788155ff18c0684e5aa3f83267421df429c5145c6b628b2ef092f"
+  },
+  {
+    "configured_path": "$raw2020/Demographic_Background.dta",
+    "bytes": 2782394,
+    "sha256": "d047afea45dfc09bf99488845dff6228504a81375a6a0207a9f12f683471005a"
+  },
+  {
+    "configured_path": "$raw2020/Family_Information.dta",
+    "bytes": 15865729,
+    "sha256": "9cfd471ea946bdfbaeef21ee68e15f09bc84b5194d104f81ea45e0069a0c0bc7"
+  },
+  {
+    "configured_path": "$raw2020/Health_Status_and_Functioning.dta",
+    "bytes": 50376860,
+    "sha256": "80e8c473f4f3d587b9b9afc676b3be353ee96c4b9d14c95e699d1f94c075584e"
+  },
+  {
+    "configured_path": "$raw2020/Household_Income.dta",
+    "bytes": 17454898,
+    "sha256": "a94143b48ee446e4fdf96cf50e21c91a015068c2810f2e7b2a239fd99bb3f8e0"
+  },
+  {
+    "configured_path": "$raw2020/Individual_Income.dta",
+    "bytes": 6870278,
+    "sha256": "8b06838cbf53174d68ffa38df24e3a5b34e02e671a9e829f7caf1f57406d39ef"
+  },
+  {
+    "configured_path": "$raw2020/Sample_Infor.dta",
+    "bytes": 929986,
+    "sha256": "eecb8139bd3b13f4659d1e56a614386f65ffdda025ec6809382913729cef6552"
+  },
+  {
+    "configured_path": "$raw2020/Weights.dta",
+    "bytes": 1219608,
+    "sha256": "83b964e397f33b888e70df37c2da6a3ecc36d95fc2d565701bd509280989ed6a"
+  },
+  {
+    "configured_path": "$raw2020/Work_Retirement.dta",
+    "bytes": 5774507,
+    "sha256": "d094f584fd022fe3c17f425c6f8da299d9e1d61508c764d6bec88df540b4e5a8"
+  }
+]

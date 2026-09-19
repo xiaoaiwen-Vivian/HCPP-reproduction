@@ -1,0 +1,388 @@
+[
+  {
+    "package": "dm0090.pkg",
+    "installed_record": "S http://www.stata-journal.com/software/sj16-3\nN dm0090.pkg\nD 29 Jan 2018\nU 1535\nd SJ16-3 dm0090. A sparser, speedier reshape\nd A sparser, speedier reshape\nd by Kenneth L. Simons, Rensselaer Polytechnic\nd      Institute\nd Support:  simonk@@rpi.edu\nd After installation, type help ^sreshape^\nf s\\sreshape.ado\nf s\\sreshape.sthlp",
+    "files": [
+      {
+        "file": "s/sreshape.ado",
+        "sha256": "1b0370ab848d5e3e99708ffbec24096577c595d984acce4ff997de4719493b30"
+      },
+      {
+        "file": "s/sreshape.sthlp",
+        "sha256": "346e8ff0be218c20279724a457590ca045ee3ec641a248107ca691c3856ea91e"
+      }
+    ]
+  },
+  {
+    "package": "ftools.pkg",
+    "installed_record": "S http://fmwww.bc.edu/repec/bocode/f\nN ftools.pkg\nD 10 Mar 2026\nU 1715\nd 'FTOOLS': module to provide alternatives to common Stata commands optimized for large datasets\nd \nd  ftools consists of a Mata file and several Stata commands: The\nd Mata file creates identifiers (factors) from variables by using\nd hash functions instead of sorting the data, so it runs in time\nd O(N) and not in O(N log N). The Stata commands exploit this to\nd avoid sort operations,  at the cost of being slower for small\nd datasets (mainly because of the cost involved in moving data from\nd Stata to Mata). Implemented commands are fcollapse, fegen group,\nd and fsort. Note that most of the capabilities of levels and\nd contract are already supported by these commands. Possible\nd commands include more egen functions and merge and reshape\nd alternatives.\nd \nd KW: levels\nd KW: collapse\nd KW: contract\nd KW: egen\nd KW: sort\nd KW: factor variables\nd KW: Mata\nd \nd Requires: Stata version 11.2 (Stata 12 or older also require boottest from SSC)\nd \nd Distribution-Date: 20260111\nd \nd Author: Sergio Correia, Board of Governors of the Federal Reserve System\nd Support: email sergio.correia@@gmail.com\nd \nf f/ftools.ado\nf f/ftools.mata\nf f/ftools.sthlp\nf f/fcollapse.ado\nf f/fcollapse.sthlp\nf f/fegen.ado\nf f/fegen_group.ado\nf f/fegen.sthlp\nf f/fisid.ado\nf f/fisid.sthlp\nf f/flevelsof.ado\nf f/flevelsof.sthlp\nf f/fmerge.ado\nf f/fmerge.sthlp\nf f/freshape.ado\nf f/fsort.ado\nf f/fsort.sthlp\nf f/ftab.ado\nf j/join.ado\nf j/join.sthlp\nf l/local_inlist.ado\nf l/local_inlist.sthlp\nf f/fcollapse_functions.mata\nf f/fcollapse_main.mata\nf f/ftools_type_aliases.mata\nf f/ftools.mata\nf f/ftools_common.mata\nf f/ftools_hash1.mata\nf f/ftools_main.mata\nf f/ftools_experimental.mata\nf f/ftools_plugin.mata\nf f/ftools_type_aliases.mata\nf m/ms_compile_mata.ado\nf m/ms_expand_varlist.ado\nf m/ms_fvstrip.ado\nf m/ms_fvstrip.sthlp\nf m/ms_fvunab.ado\nf m/ms_get_version.ado\nf m/ms_parse_absvars.ado\nf m/ms_parse_depvar.ado\nf m/ms_parse_varlist.ado\nf m/ms_parse_vce.ado\nf m/ms_add_comma.ado\nf p/parallel_map_template.do.ado\nf p/parallel_map.ado\nf p/parallel_map.sthlp",
+    "files": [
+      {
+        "file": "f/fcollapse.ado",
+        "sha256": "bec0014c804a413e40451d1a83e5faee7766dd442d812fe9549b2f8f878a2004"
+      },
+      {
+        "file": "f/fcollapse.sthlp",
+        "sha256": "3cfd14b325a16209b0d6c4276907f15f699bcada9168bb4ba7e4ac2026256402"
+      },
+      {
+        "file": "f/fcollapse_functions.mata",
+        "sha256": "eb282f461a357497508d40a3d2c374e94d5ae4242b99c3b2596f736212614bd5"
+      },
+      {
+        "file": "f/fcollapse_main.mata",
+        "sha256": "375eea05d3e412a0fa2f7406c606f0176f993109bf6e0bfcc7ef2975ba74ea11"
+      },
+      {
+        "file": "f/fegen.ado",
+        "sha256": "c5d1638f193b142e9c7529b3f36fcf53486d68689b320d21ff7e8cdd93c50e25"
+      },
+      {
+        "file": "f/fegen.sthlp",
+        "sha256": "9d7662d1c3015361998ab549c7d4a780345ec26268478a86b185d375928ecf7d"
+      },
+      {
+        "file": "f/fegen_group.ado",
+        "sha256": "92ca1712b8a2d03574d14529c85d390a5561af0b7217c0f103c2b764d9d0dd6b"
+      },
+      {
+        "file": "f/fisid.ado",
+        "sha256": "a889b5fb4c3cd6b0ac90db7500278b8080f0f66b86c71eb992a4477db57232c0"
+      },
+      {
+        "file": "f/fisid.sthlp",
+        "sha256": "97b7eaa5baee4555c0920f3a797a9019e1535fb0c655c30069e580b5ecd5f806"
+      },
+      {
+        "file": "f/flevelsof.ado",
+        "sha256": "24cb51b023866abf04420e43d3333abeefd7db66cfcf5beb5f6595b012f53192"
+      },
+      {
+        "file": "f/flevelsof.sthlp",
+        "sha256": "627333bda5c89f7e40aec78efbeb24ed3c625f588f4f9b6dde3aa744ae0356f2"
+      },
+      {
+        "file": "f/fmerge.ado",
+        "sha256": "1c2d18a8d72a12f68a7f743fb14c7a8186ece35ae05b0f75093ebc0133bcd697"
+      },
+      {
+        "file": "f/fmerge.sthlp",
+        "sha256": "db75a458e863fdb726e432419b6075e6192040aba30853df67b7afb1d49dd2a6"
+      },
+      {
+        "file": "f/freshape.ado",
+        "sha256": "29051f47c412d0e4bde2bae86e6db4f8e6787fc47cef4dd2a2c673c8b075f22f"
+      },
+      {
+        "file": "f/fsort.ado",
+        "sha256": "a9eeb9312323c7898a715733d2baceb46578f5a1a3f698a87108b4cda053d97c"
+      },
+      {
+        "file": "f/fsort.sthlp",
+        "sha256": "6a83df419f1d3068327560eaf4ea37906c55b27151aed2c5ebd1999a0d69700e"
+      },
+      {
+        "file": "f/ftab.ado",
+        "sha256": "7a6e5d40a7f4beb2cab3b9ff2a96edb725ae5cb1cf6b18098847a81ed3c0f531"
+      },
+      {
+        "file": "f/ftools.ado",
+        "sha256": "c7eba3272b5fcd1dfa157e65c37840a051c6e2bf327d5ee31d42df65cf330b00"
+      },
+      {
+        "file": "f/ftools.mata",
+        "sha256": "4af859bca19614684d3dd45566e13e17c6cf44df951ecca538bda5a44ebd1744"
+      },
+      {
+        "file": "f/ftools.sthlp",
+        "sha256": "988637569f8803e4f2ef2c8dc2f1e9050e7898f1828da64c2087eee43f98e001"
+      },
+      {
+        "file": "f/ftools_common.mata",
+        "sha256": "ce73eae9f933f0c670e1d58f7200234414c68f5a19419357622d1e0b3887bcab"
+      },
+      {
+        "file": "f/ftools_experimental.mata",
+        "sha256": "a087387a4e44847f1c86f965839743150c494975c51bdd03a7896a755d3abfb2"
+      },
+      {
+        "file": "f/ftools_hash1.mata",
+        "sha256": "a31bcd5cb93be191bf235cdf1e81f794be0f51cec9a9fb747d615e5c9ee8af0c"
+      },
+      {
+        "file": "f/ftools_main.mata",
+        "sha256": "b836c7e21872691d6b9c9da84f8407b82365852911d244561ce4bdb1a26e85af"
+      },
+      {
+        "file": "f/ftools_plugin.mata",
+        "sha256": "897146c21a1fc6e899ef19ed01a3251d19e35c7deb5158ddf3c3f0caf6450125"
+      },
+      {
+        "file": "f/ftools_type_aliases.mata",
+        "sha256": "27338dcf0d0b5f24795b46aa7fdeab79309bf18c35bacdee2313fce5ef739885"
+      },
+      {
+        "file": "j/join.ado",
+        "sha256": "34a6141b43e66a25982f9514bdb8721a167091508a525114449db1648da3b18a"
+      },
+      {
+        "file": "j/join.sthlp",
+        "sha256": "015893b534060334efeca44aa84f676128357adefeda2e0e8e6be48598eb600e"
+      },
+      {
+        "file": "l/local_inlist.ado",
+        "sha256": "c4540d6ef1c85d2ea2fdc5e9eefcfaf767f9eb2a2cc40cf3e2e5e019714d71c3"
+      },
+      {
+        "file": "l/local_inlist.sthlp",
+        "sha256": "9912ba9a104be9c6130beb5a387582c6296e3b8d8bf1a3fec935d92d836af100"
+      },
+      {
+        "file": "m/ms_add_comma.ado",
+        "sha256": "62c404231453f13f968e7780823d3235e7c3695b72ac1dbe28275478f2e6e208"
+      },
+      {
+        "file": "m/ms_compile_mata.ado",
+        "sha256": "4a316f4e00e00cef93d5cfe151308e1a128a1551fc908dd47efe6406ff00ab26"
+      },
+      {
+        "file": "m/ms_expand_varlist.ado",
+        "sha256": "b862f7ba8f490dc1931b7dda7a37e6d6c9fd6cff9435d378b61da0e353bd91ca"
+      },
+      {
+        "file": "m/ms_fvstrip.ado",
+        "sha256": "b272704336522f4ea707948549b542d802ab3eb257c3ad2341a1c543685a51f5"
+      },
+      {
+        "file": "m/ms_fvstrip.sthlp",
+        "sha256": "cfe5988bb044628ab33795b04816a5492a8c92917cdf5c7734779d85cbb873dd"
+      },
+      {
+        "file": "m/ms_fvunab.ado",
+        "sha256": "a4f47474e6d4cead0cf05cf75fd4fa6c36156e997fc2a8aa6584c122bc934900"
+      },
+      {
+        "file": "m/ms_get_version.ado",
+        "sha256": "c20215fb7583cac63083464ef18b402d8382686c7c4c8cec05caa6b5a6ca9d91"
+      },
+      {
+        "file": "m/ms_parse_absvars.ado",
+        "sha256": "98bec7d062b656cfc6818d49b6130af151b76798c33cd7031469fc5125ffe2cc"
+      },
+      {
+        "file": "m/ms_parse_depvar.ado",
+        "sha256": "3987003611f401125e66629bd613cd5188e51878b05b6bb72eeb56ed1b17266c"
+      },
+      {
+        "file": "m/ms_parse_varlist.ado",
+        "sha256": "bdb27378f1524d332cca571674c4e48c52a3138ee8183aa56bbebadb38cde48f"
+      },
+      {
+        "file": "m/ms_parse_vce.ado",
+        "sha256": "99af53ca13f325a917b7377762feab140914a5a6534c0953ea9ce6d55dcfa678"
+      },
+      {
+        "file": "p/parallel_map.ado",
+        "sha256": "96bea0da77aa112275134c77cad6f06977ae86f55759a2c7459e16d0eacf34dd"
+      },
+      {
+        "file": "p/parallel_map.sthlp",
+        "sha256": "b8ea404ce46d53c60eea67baee24257085a3d286772716888dfd30e4702a45fc"
+      },
+      {
+        "file": "p/parallel_map_template.do.ado",
+        "sha256": "d7fe2acbb7b97591b91d55760c7fc80b5ec60f5a432d80f670209647463c3d06"
+      }
+    ]
+  },
+  {
+    "package": "reghdfe.pkg",
+    "installed_record": "S http://fmwww.bc.edu/repec/bocode/r\nN reghdfe.pkg\nD 20 Apr 2026\nU 1720\nd 'REGHDFE': module to perform linear or instrumental-variable regression absorbing any number of high-dimensional fixed effects\nd \nd  reghdfe fits a linear or instrumental-variable regression\nd absorbing an arbitrary number of categorical factors and\nd factorial interactions Optionally, it saves the estimated fixed\nd effects.\nd \nd KW: regression\nd KW: instrumental variables\nd KW: fixed effects\nd KW: high dimension fixed effects\nd \nd Requires: Stata version 11.2 and ftools from SSC (q.v.)\nd \nd Distribution-Date: 20260111\nd \nd Author: Sergio Correia, Board of Governors of the Federal Reserve System\nd Support: email sergio.correia@@gmail.com\nd \nd Author: Noah Constantine, Board of Governors of the Federal Reserve System\nd Support: email\nd \nf r/reghdfe.ado\nf r/reghdfe.mata\nf r/reghdfe5.mata\nf r/reghdfe3.ado\nf r/reghdfe_p.ado\nf r/reghdfe3_p.ado\nf r/reghdfe5.ado\nf r/reghdfe5_p.ado\nf r/reghdfe_estat.ado\nf r/reghdfe3_estat.ado\nf r/reghdfe5_estat.ado\nf r/reghdfe5_parse.ado\nf r/reghdfe_footnote.ado\nf r/reghdfe3_footnote.ado\nf r/reghdfe5_footnote.ado\nf e/estfe.ado\nf r/reghdfe_header.ado\nf r/reghdfe5_header.ado\nf r/reghdfe5_parse.ado\nf r/reghdfe.sthlp\nf r/reghdfe3.sthlp\nf r/reghdfe5.sthlp\nf r/reghdfe.mata\nf r/reghdfe_programming.sthlp",
+    "files": [
+      {
+        "file": "e/estfe.ado",
+        "sha256": "a2913f84bf90792230b525de0c495cbddfc810dc78c83dd351bac4cf9e353333"
+      },
+      {
+        "file": "r/reghdfe.ado",
+        "sha256": "0c700ea38de4ed110d0cbb57acd3e24351a5ab68b61dd84fcb0e5bc8f02d941a"
+      },
+      {
+        "file": "r/reghdfe.mata",
+        "sha256": "903eb887abf948a23f4640f4e3ec0d06965b2413fcfae0342e6c4d4ef6ead4c4"
+      },
+      {
+        "file": "r/reghdfe.sthlp",
+        "sha256": "fc3e5b070db4e9bd5c93246d291805d5a7e0d3d9d2c38b58042b4f8377e11864"
+      },
+      {
+        "file": "r/reghdfe3.ado",
+        "sha256": "06ae4682ad1421c08dfa520dc98609141006602192d9703ab147310c0aa1db5b"
+      },
+      {
+        "file": "r/reghdfe3.sthlp",
+        "sha256": "54bdd8cd01fd4273978d989e29e310d5158461fc72edd874272da5cfbb42d62a"
+      },
+      {
+        "file": "r/reghdfe3_estat.ado",
+        "sha256": "9e9ceaa020bdfd1f6803e671531f162a5194440f14330f4c0fe629d8a878b73a"
+      },
+      {
+        "file": "r/reghdfe3_footnote.ado",
+        "sha256": "66558aab202a6345540988cf555037794eace5e09a17ddebaacafa0890bfc4ea"
+      },
+      {
+        "file": "r/reghdfe3_p.ado",
+        "sha256": "422280314dd7dc48b9a3b6238face0abd698f459160918ca2b0195125587b3d2"
+      },
+      {
+        "file": "r/reghdfe5.ado",
+        "sha256": "0ccc39e990efeb8aa6c603ac7feb89bec47ed73d5ace095d13504390cd1baf2a"
+      },
+      {
+        "file": "r/reghdfe5.mata",
+        "sha256": "f99d6502e5d5b300041a4c6290de25ebc5f8c20bc629292adcdc1cdaa9658187"
+      },
+      {
+        "file": "r/reghdfe5.sthlp",
+        "sha256": "0f9b33f8d36ba36de40e56738f52f7a5ee20aa8296b48d9ae9a699316f1875fa"
+      },
+      {
+        "file": "r/reghdfe5_estat.ado",
+        "sha256": "911cb9a178f13b6b68a9e3757b57880549e53b64ad9e5d3154ea5da7e191774b"
+      },
+      {
+        "file": "r/reghdfe5_footnote.ado",
+        "sha256": "a70ae8289b52d86c28e01fafddb10ef381d922e80da875d4b3907a3dc9fd8d5a"
+      },
+      {
+        "file": "r/reghdfe5_header.ado",
+        "sha256": "df5d665c5f504355ac345e87f8c3b3fe0adced08b73b5d1e51715f1eae2bfba6"
+      },
+      {
+        "file": "r/reghdfe5_p.ado",
+        "sha256": "7b04d29494f2f8d977dc94ffaca701c6b7ec28768066f4cd3b93a5437e89e003"
+      },
+      {
+        "file": "r/reghdfe5_parse.ado",
+        "sha256": "13662b3579e740e4233700d0f966b4cf7e03f6109a08cacd44e33fcf098cb20a"
+      },
+      {
+        "file": "r/reghdfe_estat.ado",
+        "sha256": "c824d5d2ca8e5bbeeb1916cc80afd05554c668467ebed96c7a5ca86b8a5a87bb"
+      },
+      {
+        "file": "r/reghdfe_footnote.ado",
+        "sha256": "39efcab7ff05fe00ccfa24e2d6e428a216471bacc7896f97d12544aae33602ac"
+      },
+      {
+        "file": "r/reghdfe_header.ado",
+        "sha256": "2d39165ed4363c1fc503b0d599dc942db55c87415733957e98ba26eccc66f65d"
+      },
+      {
+        "file": "r/reghdfe_p.ado",
+        "sha256": "ce736f81cfe3cecbd5d5f66c275582ce0d622ea8e67161df8bc7855dfd0b1639"
+      },
+      {
+        "file": "r/reghdfe_programming.sthlp",
+        "sha256": "db849ee333a5fa269381cf928fdf9c5c465ce13cd3219a31737f8b6299cd67c2"
+      }
+    ]
+  },
+  {
+    "package": "psmatch2.pkg",
+    "installed_record": "S http://fmwww.bc.edu/RePEc/bocode/p\nN psmatch2.pkg\nD 23 May 2017\nU 1408\nd 'PSMATCH2': module to perform full Mahalanobis and propensity score matching, common support graphing, and covariate imbalance testing\nd \nd psmatch2 implements full Mahalanobis and propensity score\nd matching, common support graphing, and covariate imbalance\nd testing. This routine supersedes the previous 'psmatch' routine\nd of B. Sianesi. The April 2012 revision of pstest changes the\nd syntax of that command.\nd \nd KW: propensity score\nd KW: matching\nd KW: treatment\nd \nd Requires: Stata version 11\nd \nd \nd Author: Edwin Leuven, Ecole Nationale de la Statistique et Administration Economique (ENSAE)\nd Support: email edwin.leuven@@ensae.fr\nd \nd Author: Barbara Sianesi, Institute for Fiscal Studies\nd Support: email barbara_s@@ifs.org.uk\nd \nd Distribution-Date: 20170502\nd \nf p\\psmatch2.ado\nf p\\psmatch2.sthlp\nf p\\psmatch2.dlg\nf p\\pstest.ado\nf p\\pstest.sthlp\nf p\\psgraph.ado\nf p\\psgraph.sthlp",
+    "files": [
+      {
+        "file": "p/psgraph.ado",
+        "sha256": "84c2d4d9b9d6993794917e608f847fea8af999a739c5833a65dadb083d5ee2fe"
+      },
+      {
+        "file": "p/psgraph.sthlp",
+        "sha256": "a81c4bec252288dd91b05975e9846aedc5c8a9bac6c302862a956c0e5c21591e"
+      },
+      {
+        "file": "p/psmatch2.ado",
+        "sha256": "8308489d17153b5c0c2f564d1b842816425739f213c803eb581568c19e41a011"
+      },
+      {
+        "file": "p/psmatch2.dlg",
+        "sha256": "bf3deb7f5794b0f89254876cd0a366d1d9d649cfe8b86ed79ef6afe7c3cf02dd"
+      },
+      {
+        "file": "p/psmatch2.sthlp",
+        "sha256": "24760dfa2a4d48ba4c863f053d6d9ab33793ca203d97b96b2945b59d3815b318"
+      },
+      {
+        "file": "p/pstest.ado",
+        "sha256": "8a24695a51ef6d73d0de732d950ad47746d71944b5c9d5d08535c634c30ca1dd"
+      },
+      {
+        "file": "p/pstest.sthlp",
+        "sha256": "99d9e9e29ba3ca0600ae7d7519be888ceb18b5f81159464a5f2ce2272e7b205a"
+      }
+    ]
+  },
+  {
+    "package": "estout.pkg",
+    "installed_record": "S http://fmwww.bc.edu/repec/bocode/e\nN estout.pkg\nD 26 Dec 2025\nU 1712\nd 'ESTOUT': module to make regression tables\nd \nd  estout produces a table of regression results from one or\nd several models for use with spreadsheets, LaTeX, HTML, or a\nd word-processor table. eststo stores a quick copy of the active\nd estimation results for later tabulation. esttab is a wrapper for\nd estout. It displays a pretty looking publication-style regression\nd table without much typing. estadd adds additional results to the\nd e()-returns for one or several models previously fitted and\nd stored. This package subsumes the previously circulated esto,\nd esta, estadd,  and estadd_plus. An earlier version of estout is\nd available  as estout1.\nd \nd KW: estimates\nd KW: LaTeX\nd KW: HTML\nd KW: word processor\nd KW: output\nd \nd Requires: Stata version 8.2\nd \nd Distribution-Date: 20230212\nd \nd Author: Ben Jann, University of Bern\nd Support: email jann@@soz.unibe.ch\nd \nf _/_eststo.ado\nf _/_eststo.hlp\nf e/estadd.ado\nf e/estadd.hlp\nf e/estout.ado\nf e/estout.hlp\nf e/eststo.ado\nf e/eststo.hlp\nf e/estpost.ado\nf e/estpost.hlp\nf e/esttab.ado\nf e/esttab.hlp",
+    "files": [
+      {
+        "file": "_/_eststo.ado",
+        "sha256": "c7d12cf1c1ef2388becfc8a17f90fcf197f41d77d9170373d01d6a87591a4a50"
+      },
+      {
+        "file": "_/_eststo.hlp",
+        "sha256": "422a3a6bbe4c9d9b670af1eb159ce8af43af5a2d78a3c6d2de10f2a31d56ec8f"
+      },
+      {
+        "file": "e/estadd.ado",
+        "sha256": "215bb477394db489bdcb4dcf44011863ebb11d34b730503969b084b87c4f18ea"
+      },
+      {
+        "file": "e/estadd.hlp",
+        "sha256": "7699b78be5b6c44923d1958a5c49b1e3eaa5b9acf13ea637665f7bb940198ae0"
+      },
+      {
+        "file": "e/estout.ado",
+        "sha256": "59e8e006c8ff1679ea185d22081bd0a107e02c341132fdea557798d36f5a36f9"
+      },
+      {
+        "file": "e/estout.hlp",
+        "sha256": "96c69bb842cc1a0b31e5b3ea42059c785f0605919e082ddc3d36c540315a3833"
+      },
+      {
+        "file": "e/estpost.ado",
+        "sha256": "7b2d0839a787ce0994fe30595bc84f03a14746d329f0d92aae6cd734a36867f9"
+      },
+      {
+        "file": "e/estpost.hlp",
+        "sha256": "7f698093c2fbe2326df813d28d662ff4e3a6e4eff7ace360bc39a3b8c142f4b3"
+      },
+      {
+        "file": "e/eststo.ado",
+        "sha256": "8abde23b7a1085ea415d83cbe8be34e31236fd180dc4386b7b6435b06c69cd3a"
+      },
+      {
+        "file": "e/eststo.hlp",
+        "sha256": "9b4a1714e22ba895c2f7df0eb1b044a0e0a993f8c6aa2535b64073f91b1ba9a5"
+      },
+      {
+        "file": "e/esttab.ado",
+        "sha256": "e6c86e66f57eb44183678059fddeb7e9cf7e9caf493d0491eead0a02885c3eba"
+      },
+      {
+        "file": "e/esttab.hlp",
+        "sha256": "46633fe5989bdc66594d317f7de260cc187f1ec17b9ef298d7d341696b8e13da"
+      }
+    ]
+  },
+  {
+    "extra_file": "l/lftools.mlib",
+    "sha256": "2bcffa21493f225b661619844fef9309fa1c97afae816d900c948c94e7ba8d34"
+  },
+  {
+    "extra_file": "m/ms_parse_depvar.ado",
+    "sha256": "3987003611f401125e66629bd613cd5188e51878b05b6bb72eeb56ed1b17266c"
+  }
+]

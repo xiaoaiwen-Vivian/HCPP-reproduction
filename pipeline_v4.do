@@ -1890,18 +1890,23 @@ global ctrl gender marry log_real_inc_per rwork rural2 edu hchild retire ///
     adlab_c smoken drinkl srh age
 global ctrl_nonlinear $ctrl
 global sample age >= 45 & age < . & rural == 0
+do "$code/export_estimate.do"
 * Main DID specifications; city-clustered inference is primary throughout.
 reg rgoingl_clean did treat post $ctrl if $sample, vce(cluster city)
 estimates store did_pooled
+hcpp_export_estimate pooled "did"
 reghdfe rgoingl_clean did treat post $ctrl if $sample, ///
     absorb(city) vce(cluster city)
 estimates store did_cityfe
+hcpp_export_estimate city "did"
 reghdfe rgoingl_clean did treat post $ctrl if $sample, ///
     absorb(iwy) vce(cluster city)
 estimates store did_yearfe
+hcpp_export_estimate year "did"
 reghdfe rgoingl_clean did $ctrl if $sample, ///
     absorb(city iwy) vce(cluster city)
 estimates store did_primary
+hcpp_export_estimate twfe "did"
 gen byte baseline_sample = e(sample)
 preserve
 keep if baseline_sample
@@ -2002,14 +2007,14 @@ gen byte working = rwork==1 if !missing(rwork)
 gen byte male = gender==1 if !missing(gender)
 tempname hethold
 tempfile hetresults
-postfile `hethold' str18 Dimension str18 Group double Coef SE P N Cities ///
+postfile `hethold' str18 Dimension str18 Group double Coef SE P N Cities R2 ///
     using `hetresults', replace
 
 foreach gg in 1 2 3 {
     quietly reghdfe rgoingl_clean did $ctrl if $sample & inc_group==`gg', ///
         absorb(city iwy) vce(cluster city)
     post `hethold' ("Income") ("Tercile `gg'") (_b[did]) (_se[did]) ///
-        (2*ttail(e(df_r),abs(_b[did]/_se[did]))) (e(N)) (e(N_clust))
+        (2*ttail(e(df_r),abs(_b[did]/_se[did]))) (e(N)) (e(N_clust)) (e(r2))
 }
 foreach spec in "Education low_edu" "Work working" "Gender male" {
     tokenize `"`spec'"'
@@ -2023,7 +2028,7 @@ foreach spec in "Education low_edu" "Work working" "Gender male" {
         quietly reghdfe rgoingl_clean did `subctrl' if $sample & `gvar'==`gg', ///
             absorb(city iwy) vce(cluster city)
         post `hethold' ("`dim'") ("`gvar'=`gg'") (_b[did]) (_se[did]) ///
-            (2*ttail(e(df_r),abs(_b[did]/_se[did]))) (e(N)) (e(N_clust))
+            (2*ttail(e(df_r),abs(_b[did]/_se[did]))) (e(N)) (e(N_clust)) (e(r2))
     }
 }
 postclose `hethold'
@@ -2042,13 +2047,12 @@ foreach vv in low_income mid_income high_income low_edu working male ///
 }
 
 gen byte low_income  = (inc_group == 1) if !missing(inc_group)
-gen byte mid_income  = (inc_group == 2) if !missing(inc_group)
 gen byte high_income = (inc_group == 3) if !missing(inc_group)
 gen byte low_edu     = (edu == 1) if !missing(edu)
 gen byte working     = (rwork == 1) if !missing(rwork)
 gen byte male        = (gender == 1) if !missing(gender)
 
-foreach gg in lowinc midinc highinc lowedu working male {
+foreach gg in lowinc highinc lowedu working male {
     local gv = cond("`gg'"=="lowinc", "low_income", ///
         cond("`gg'"=="midinc", "mid_income", ///
         cond("`gg'"=="highinc", "high_income", ///
@@ -2068,12 +2072,6 @@ reghdfe rgoingl_clean did low_income treat_lowinc post_lowinc did_lowinc ///
     $ctrl if $sample, absorb(city iwy) vce(cluster city)
 quietly lincom did_lowinc
 post `hethold' ("Low income x DID") (r(estimate)) (r(se)) (r(p)) ///
-    (r(lb)) (r(ub)) (e(N))
-
-reghdfe rgoingl_clean did mid_income treat_midinc post_midinc did_midinc ///
-    $ctrl if $sample, absorb(city iwy) vce(cluster city)
-quietly lincom did_midinc
-post `hethold' ("Middle income x DID") (r(estimate)) (r(se)) (r(p)) ///
     (r(lb)) (r(ub)) (e(N))
 
 reghdfe rgoingl_clean did high_income treat_highinc post_highinc did_highinc ///
@@ -2130,17 +2128,18 @@ local x_gender did treat post marry log_real_inc_per rwork rural2 edu ///
 
 tempname chowhold
 tempfile chow_results
-postfile `chowhold' str24 Grouping double F_stat df1 df2 P_value N ///
-    City_clusters using `chow_results', replace
+postfile `chowhold' str32 Grouping double(F_stat df1 df2 P_value N ///
+    City_clusters) using `chow_results', replace
 
-fvset base 1 inc_group
-reghdfe rgoingl_clean i.inc_group##c.(`x_income') if $sample, ///
+gen byte income_compare = inc_group!=1 if !missing(inc_group)
+fvset base 0 income_compare
+reghdfe rgoingl_clean i.income_compare##c.(`x_income') if $sample, ///
     absorb(city iwy) vce(cluster city)
 estimates store chow_income
 local model_N = e(N)
 local model_G = e(N_clust)
-testparm i.inc_group i.inc_group#c.(`x_income')
-post `chowhold' ("Income tertile") ///
+testparm i.income_compare i.income_compare#c.(`x_income')
+post `chowhold' ("Income: Low vs. Middle/High") ///
     (r(F)) (r(df)) (r(df_r)) (r(p)) (`model_N') (`model_G')
 
 fvset base 0 low_edu
@@ -2186,52 +2185,12 @@ preserve
 restore
 
 
-* Mechanism Panel A (DID -> mediator) and Panel B (mediator -> outcome).
-tempname mechpost
-tempfile mechresults
-postfile `mechpost' str8 Panel str20 Mediator double Coef SE P N Cities ///
-    using `mechresults', replace
-foreach item in "Green GreenCoverageRateBD" "Road RoadSurAreaPerCap" ///
-    "SO2 工业二氧化硫排放量吨" "Medical hosper" "PM25 pm" "Social act_12" {
-    tokenize `"`item'"'
-    local lab "`1'"
-    local med "`2'"
-    tempvar medsample
-    gen byte `medsample' = baseline_sample & !missing(`med')
-    quietly reghdfe `med' did $ctrl if `medsample', ///
-        absorb(city iwy) vce(cluster city)
-    post `mechpost' ("Panel A") ("`lab'") (_b[did]) (_se[did]) ///
-        (2*ttail(e(df_r),abs(_b[did]/_se[did]))) (e(N)) (e(N_clust))
-    quietly reghdfe rgoingl_clean `med' did $ctrl if `medsample', ///
-        absorb(city iwy) vce(cluster city)
-    post `mechpost' ("Panel B") ("`lab'") (_b[`med']) (_se[`med']) ///
-        (2*ttail(e(df_r),abs(_b[`med']/_se[`med']))) (e(N)) (e(N_clust))
-}
-postclose `mechpost'
-preserve
-    use `mechresults', clear
-    gen double Bonferroni_P = min(P*6,1)
-    sort Panel P
-    by Panel: gen int Rank = _n
-    by Panel: gen double BH_raw = P*_N/Rank
-    gsort Panel -Rank
-    by Panel: gen double FDR_Q = BH_raw if _n==1
-    by Panel: replace FDR_Q = min(BH_raw,FDR_Q[_n-1]) if _n>1
-    replace FDR_Q = min(FDR_Q,1)
-    sort Panel Rank
-    drop BH_raw
-    export excel using "$outpath/mechanism_panelAB_city_cluster.xlsx", ///
-        firstrow(variables) replace
-restore
+* Table 5: one shared estimation block for full and targeted runs.
+do "$code/table5_panels.do"
 
-
-* Binary LPM and legacy individual-clustered inference, once each.
+* Binary LPM: city-clustered specification in Table 6b.
 reghdfe rgoingl_bin did $ctrl if $sample, absorb(city iwy) vce(cluster city)
-estimates store robust_lpm
-reghdfe rgoingl_clean did $ctrl if $sample, absorb(city iwy) vce(cluster ID)
-estimates store legacy_individual_cluster
-esttab robust_lpm legacy_individual_cluster using "$outpath/appendix_LPM_individual_cluster.rtf", replace keep(did) b(6) se(6) stats(N)
-
+hcpp_export_estimate lpm "did"
 
 * ==================== PREPOLICY PSM ONLY ====================
 version 18.0
@@ -2256,8 +2215,8 @@ replace cpi_index = 1.091967 if iwy == 2015
 replace cpi_index = 1.157663 if iwy == 2018
 replace cpi_index = 1.217449 if iwy == 2020
 gen double real_inc_per = (income_total / family_size) / cpi_index ///
-    if income_total > 0 & family_size > 0 & !missing(cpi_index)
-gen double log_real_inc_per = log(real_inc_per) if real_inc_per > 0
+    if income_total > 0 & income_total < . & family_size > 0 & family_size < . & !missing(cpi_index)
+gen double log_real_inc_per = log(real_inc_per) if real_inc_per > 0 & real_inc_per < .
 gen double rgoingl_clean = rgoingl
 
 global psmvars gender marry log_real_inc_per rwork rural2 edu hchild retire ///
@@ -2358,15 +2317,25 @@ restore
 
 
 pstest $psmvars, both graph
+tempname pdiag
+file open `pdiag' using "$outpath/prepolicy_psm_global_balance.csv", write text replace
+file write `pdiag' "Metric,Value" _n
+foreach key in r2bef r2aft chiprobbef chiprobaft meanbiasbef meanbiasaft medbiasbef medbiasaft Bbef Baft Rbef Raft {
+    file write `pdiag' "`key'," %24.16g (r(`key')) _n
+}
+local psm_df : word count $psmvars
+file write `pdiag' "chi2bef," %24.16g (invchi2tail(`psm_df',r(chiprobbef))) _n
+file write `pdiag' "chi2aft," %24.16g (invchi2tail(`psm_df',r(chiprobaft))) _n
+file close `pdiag'
 graph export "$outpath/prepolicy_psm_balance.png", replace width(2800)
 twoway (kdensity pscore_pre if treat==1, lcolor(navy)) ///
     (kdensity pscore_pre if treat==0, lcolor(maroon) lpattern(dash)), ///
     legend(order(1 "Treated" 2 "Controls")) name(ps_before, replace) ///
-    title("Before matching") xtitle("Propensity score") graphregion(color(white))
+    title("Before matching") xtitle("Propensity score") ytitle("Density") graphregion(color(white))
 twoway (kdensity pscore_pre [aw=_weight] if treat==1 & _support==1 & _weight>0 & _weight<., lcolor(navy)) ///
     (kdensity pscore_pre [aw=_weight] if treat==0 & _support==1 & _weight>0 & _weight<., lcolor(maroon) lpattern(dash)), ///
     legend(order(1 "Treated" 2 "Weighted controls")) name(ps_after, replace) ///
-    title("After kernel matching") xtitle("Propensity score") graphregion(color(white))
+    title("After kernel matching") xtitle("Propensity score") ytitle("Density") graphregion(color(white))
 graph combine ps_before ps_after, cols(2) graphregion(color(white))
 graph export "$outpath/prepolicy_psm_overlap.png", replace width(3200)
 count if _weight>0 & _weight<. & _support==1
@@ -2382,6 +2351,7 @@ merge m:1 ID using `preweights', keep(match) nogen
 reghdfe rgoingl_clean did $ctrl [pweight=_weight] ///
     if _support == 1 & $sample, absorb(city iwy) vce(cluster city)
 
+hcpp_export_estimate psm "did"
 local did_b = _b[did]
 local did_se = _se[did]
 local did_p = 2 * ttail(e(df_r), abs(_b[did] / _se[did]))
@@ -2444,8 +2414,8 @@ replace cpi_index = 1.091967 if iwy == 2015
 replace cpi_index = 1.157663 if iwy == 2018
 replace cpi_index = 1.217449 if iwy == 2020
 gen double real_inc_per = (income_total / family_size) / cpi_index ///
-    if income_total > 0 & family_size > 0 & !missing(cpi_index)
-gen double log_real_inc_per = log(real_inc_per) if real_inc_per > 0
+    if income_total > 0 & income_total < . & family_size > 0 & family_size < . & !missing(cpi_index)
+gen double log_real_inc_per = log(real_inc_per) if real_inc_per > 0 & real_inc_per < .
 bysort ID: egen double avg_log_inc = mean(log_real_inc_per)
 xtile inc_group = avg_log_inc, nq(3)
 gen double act_12 = act_1 + act_2
@@ -2548,6 +2518,7 @@ foreach model in ologit logit {
         capture noisily logit rgoingl_bin did $ctrl `indicators' if baseline_sample, vce(cluster city_num) iterate(100)
         local rc = _rc
     }
+    if `rc'==0 hcpp_export_estimate `model' "did"
     if `rc'==0 | `rc'==430 {
         capture local cv = e(converged)
         capture local n = e(N)
@@ -2615,6 +2586,7 @@ restore
 *    collinear controls are automatically omitted. Inference clusters by city.
 * --------------------------------------------------------------------------
 reghdfe rgoingl_clean did $ctrl if $sample, absorb(ID iwy) vce(cluster city)
+hcpp_export_estimate individual_fe "did"
 local ife_b = _b[did]
 local ife_se = _se[did]
 local ife_p = 2 * ttail(e(df_r), abs(_b[did] / _se[did]))
@@ -3033,6 +3005,10 @@ preserve
     export delimited using "$outpath/covid_unknown_case_observations.csv", replace
 restore
 
+* Additive COVID model for Tables 6b and 6c, on the primary complete-case sample.
+quietly reghdfe rgoingl_clean did covidnumber $ctrl if baseline_sample, absorb(city iwy) vce(cluster city)
+hcpp_export_estimate additive_covid "did covidnumber"
+
 * Freeze the exact complete-case interaction-model sample.
 gen double did_covidnumber = did * covidnumber
 quietly reghdfe rgoingl_clean did covidnumber did_covidnumber $ctrl if $sample, ///
@@ -3072,6 +3048,7 @@ gen double covid_centered = covidnumber - `tr_mean'
 gen double did_covid_centered = did * covid_centered
 reghdfe rgoingl_clean did covid_centered did_covid_centered $ctrl ///
     if analysis_sample, absorb(city iwy) vce(cluster city)
+hcpp_export_estimate covid_centered "did covid_centered did_covid_centered"
 assert e(sample)==analysis_sample
 assert abs(_b[did]-`reference_centered_did')<1e-8
 assert abs(_se[did]-`reference_centered_se')<1e-8

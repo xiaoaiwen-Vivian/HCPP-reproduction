@@ -61,6 +61,12 @@ if "`mode'"=="build" {
     shell "$python" "$code/verify_run.py" "$package_root" "$project" --build-only
 }
 else {
+    sysdir set PLUS "$package_root/vendor/stata_plus/"
+    do "$code/sobel_city.do"
+    do "$code/figures_main.do"
+    do "$code/figures_appendix.do"
+    shell "$python" "$code/export_manuscript.py" "$project"
+    confirm file "$outpath/manuscript_exports.ok"
     shell "$python" "$code/verify_run.py" "$package_root" "$project"
 }
 confirm file "$project/verification_passed.ok"

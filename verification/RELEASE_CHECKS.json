@@ -1,0 +1,2064 @@
+{
+  "maintainer": "Xiaoai",
+  "passed": true,
+  "mode": "full",
+  "checks": [
+    {
+      "check": "no_unhandled_stata_error",
+      "passed": true
+    },
+    {
+      "check": "completed_sentinel",
+      "passed": true
+    },
+    {
+      "check": "charls_rows",
+      "passed": true
+    },
+    {
+      "check": "0507_rows",
+      "passed": true
+    },
+    {
+      "check": "identified_person_waves",
+      "passed": true
+    },
+    {
+      "check": "environment_only_rows",
+      "passed": true
+    },
+    {
+      "check": "unique_person_wave_keys",
+      "passed": true
+    },
+    {
+      "check": "primary_observations",
+      "passed": true
+    },
+    {
+      "check": "primary_people",
+      "passed": true
+    },
+    {
+      "check": "primary_age_eligible",
+      "passed": true
+    },
+    {
+      "check": "primary_urban",
+      "passed": true
+    },
+    {
+      "check": "main.DID",
+      "passed": true
+    },
+    {
+      "check": "main.City_cluster_SE",
+      "passed": true
+    },
+    {
+      "check": "main.P",
+      "passed": true
+    },
+    {
+      "check": "main.CI_L",
+      "passed": true
+    },
+    {
+      "check": "main.CI_U",
+      "passed": true
+    },
+    {
+      "check": "main.Observations",
+      "passed": true
+    },
+    {
+      "check": "main.Cities",
+      "passed": true
+    },
+    {
+      "check": "main.Treated_cities",
+      "passed": true
+    },
+    {
+      "check": "main.Control_cities",
+      "passed": true
+    },
+    {
+      "check": "PSM.specification",
+      "passed": true
+    },
+    {
+      "check": "PSM.coefficient",
+      "passed": true
+    },
+    {
+      "check": "PSM.city_cluster_se",
+      "passed": true
+    },
+    {
+      "check": "PSM.p_value",
+      "passed": true
+    },
+    {
+      "check": "PSM.ci_lower",
+      "passed": true
+    },
+    {
+      "check": "PSM.ci_upper",
+      "passed": true
+    },
+    {
+      "check": "PSM.observations",
+      "passed": true
+    },
+    {
+      "check": "PSM.city_clusters",
+      "passed": true
+    },
+    {
+      "check": "PSM.propensity_individuals",
+      "passed": true
+    },
+    {
+      "check": "PSM.propensity_pseudo_r2",
+      "passed": true
+    },
+    {
+      "check": "PSM.propensity_LR_chi2",
+      "passed": true
+    },
+    {
+      "check": "PSM.propensity_LR_p",
+      "passed": true
+    },
+    {
+      "check": "PSM.propensity_AUC",
+      "passed": true
+    },
+    {
+      "check": "PSM.positive_weight_people",
+      "passed": true
+    },
+    {
+      "check": "PSM.analysis_people",
+      "passed": true
+    },
+    {
+      "check": "PSM.treated_total",
+      "passed": true
+    },
+    {
+      "check": "PSM.treated_on_support",
+      "passed": true
+    },
+    {
+      "check": "PSM.control_total",
+      "passed": true
+    },
+    {
+      "check": "PSM.control_on_support",
+      "passed": true
+    },
+    {
+      "check": "PSM.control_positive_weight",
+      "passed": true
+    },
+    {
+      "check": "heterogeneity_interactions.length",
+      "passed": true
+    },
+    {
+      "check": "heterogeneity_interactions[0].Test",
+      "passed": true
+    },
+    {
+      "check": "heterogeneity_interactions[0].Coef",
+      "passed": true
+    },
+    {
+      "check": "heterogeneity_interactions[0].SE",
+      "passed": true
+    },
+    {
+      "check": "heterogeneity_interactions[0].P",
+      "passed": true
+    },
+    {
+      "check": "heterogeneity_interactions[0].CI_L",
+      "passed": true
+    },
+    {
+      "check": "heterogeneity_interactions[0].CI_U",
+      "passed": true
+    },
+    {
+      "check": "heterogeneity_interactions[0].N",
+      "passed": true
+    },
+    {
+      "check": "heterogeneity_interactions[1].Test",
+      "passed": true
+    },
+    {
+      "check": "heterogeneity_interactions[1].Coef",
+      "passed": true
+    },
+    {
+      "check": "heterogeneity_interactions[1].SE",
+      "passed": true
+    },
+    {
+      "check": "heterogeneity_interactions[1].P",
+      "passed": true
+    },
+    {
+      "check": "heterogeneity_interactions[1].CI_L",
+      "passed": true
+    },
+    {
+      "check": "heterogeneity_interactions[1].CI_U",
+      "passed": true
+    },
+    {
+      "check": "heterogeneity_interactions[1].N",
+      "passed": true
+    },
+    {
+      "check": "heterogeneity_interactions[2].Test",
+      "passed": true
+    },
+    {
+      "check": "heterogeneity_interactions[2].Coef",
+      "passed": true
+    },
+    {
+      "check": "heterogeneity_interactions[2].SE",
+      "passed": true
+    },
+    {
+      "check": "heterogeneity_interactions[2].P",
+      "passed": true
+    },
+    {
+      "check": "heterogeneity_interactions[2].CI_L",
+      "passed": true
+    },
+    {
+      "check": "heterogeneity_interactions[2].CI_U",
+      "passed": true
+    },
+    {
+      "check": "heterogeneity_interactions[2].N",
+      "passed": true
+    },
+    {
+      "check": "heterogeneity_interactions[3].Test",
+      "passed": true
+    },
+    {
+      "check": "heterogeneity_interactions[3].Coef",
+      "passed": true
+    },
+    {
+      "check": "heterogeneity_interactions[3].SE",
+      "passed": true
+    },
+    {
+      "check": "heterogeneity_interactions[3].P",
+      "passed": true
+    },
+    {
+      "check": "heterogeneity_interactions[3].CI_L",
+      "passed": true
+    },
+    {
+      "check": "heterogeneity_interactions[3].CI_U",
+      "passed": true
+    },
+    {
+      "check": "heterogeneity_interactions[3].N",
+      "passed": true
+    },
+    {
+      "check": "heterogeneity_interactions[4].Test",
+      "passed": true
+    },
+    {
+      "check": "heterogeneity_interactions[4].Coef",
+      "passed": true
+    },
+    {
+      "check": "heterogeneity_interactions[4].SE",
+      "passed": true
+    },
+    {
+      "check": "heterogeneity_interactions[4].P",
+      "passed": true
+    },
+    {
+      "check": "heterogeneity_interactions[4].CI_L",
+      "passed": true
+    },
+    {
+      "check": "heterogeneity_interactions[4].CI_U",
+      "passed": true
+    },
+    {
+      "check": "heterogeneity_interactions[4].N",
+      "passed": true
+    },
+    {
+      "check": "mediation.length",
+      "passed": true
+    },
+    {
+      "check": "mediation[0].Mediator",
+      "passed": true
+    },
+    {
+      "check": "mediation[0].Path_A",
+      "passed": true
+    },
+    {
+      "check": "mediation[0].Path_B",
+      "passed": true
+    },
+    {
+      "check": "mediation[0].Total",
+      "passed": true
+    },
+    {
+      "check": "mediation[0].Direct",
+      "passed": true
+    },
+    {
+      "check": "mediation[0].Indirect",
+      "passed": true
+    },
+    {
+      "check": "mediation[0].Bootstrap_SE",
+      "passed": true
+    },
+    {
+      "check": "mediation[0].Pct_CI_L",
+      "passed": true
+    },
+    {
+      "check": "mediation[0].Pct_CI_U",
+      "passed": true
+    },
+    {
+      "check": "mediation[0].BC_CI_L",
+      "passed": true
+    },
+    {
+      "check": "mediation[0].BC_CI_U",
+      "passed": true
+    },
+    {
+      "check": "mediation[0].Bootstrap_P",
+      "passed": true
+    },
+    {
+      "check": "mediation[0].Reps",
+      "passed": true
+    },
+    {
+      "check": "mediation[0].Attempted_Reps",
+      "passed": true
+    },
+    {
+      "check": "mediation[0].Failed_Reps",
+      "passed": true
+    },
+    {
+      "check": "mediation[0].N",
+      "passed": true
+    },
+    {
+      "check": "mediation[0].Cities",
+      "passed": true
+    },
+    {
+      "check": "mediation[0].Seed",
+      "passed": true
+    },
+    {
+      "check": "mediation[0].Bonferroni_P",
+      "passed": true
+    },
+    {
+      "check": "mediation[0].Rank",
+      "passed": true
+    },
+    {
+      "check": "mediation[0].FDR_Q",
+      "passed": true
+    },
+    {
+      "check": "mediation[0].FDR_reject_005",
+      "passed": true
+    },
+    {
+      "check": "mediation[1].Mediator",
+      "passed": true
+    },
+    {
+      "check": "mediation[1].Path_A",
+      "passed": true
+    },
+    {
+      "check": "mediation[1].Path_B",
+      "passed": true
+    },
+    {
+      "check": "mediation[1].Total",
+      "passed": true
+    },
+    {
+      "check": "mediation[1].Direct",
+      "passed": true
+    },
+    {
+      "check": "mediation[1].Indirect",
+      "passed": true
+    },
+    {
+      "check": "mediation[1].Bootstrap_SE",
+      "passed": true
+    },
+    {
+      "check": "mediation[1].Pct_CI_L",
+      "passed": true
+    },
+    {
+      "check": "mediation[1].Pct_CI_U",
+      "passed": true
+    },
+    {
+      "check": "mediation[1].BC_CI_L",
+      "passed": true
+    },
+    {
+      "check": "mediation[1].BC_CI_U",
+      "passed": true
+    },
+    {
+      "check": "mediation[1].Bootstrap_P",
+      "passed": true
+    },
+    {
+      "check": "mediation[1].Reps",
+      "passed": true
+    },
+    {
+      "check": "mediation[1].Attempted_Reps",
+      "passed": true
+    },
+    {
+      "check": "mediation[1].Failed_Reps",
+      "passed": true
+    },
+    {
+      "check": "mediation[1].N",
+      "passed": true
+    },
+    {
+      "check": "mediation[1].Cities",
+      "passed": true
+    },
+    {
+      "check": "mediation[1].Seed",
+      "passed": true
+    },
+    {
+      "check": "mediation[1].Bonferroni_P",
+      "passed": true
+    },
+    {
+      "check": "mediation[1].Rank",
+      "passed": true
+    },
+    {
+      "check": "mediation[1].FDR_Q",
+      "passed": true
+    },
+    {
+      "check": "mediation[1].FDR_reject_005",
+      "passed": true
+    },
+    {
+      "check": "mediation[2].Mediator",
+      "passed": true
+    },
+    {
+      "check": "mediation[2].Path_A",
+      "passed": true
+    },
+    {
+      "check": "mediation[2].Path_B",
+      "passed": true
+    },
+    {
+      "check": "mediation[2].Total",
+      "passed": true
+    },
+    {
+      "check": "mediation[2].Direct",
+      "passed": true
+    },
+    {
+      "check": "mediation[2].Indirect",
+      "passed": true
+    },
+    {
+      "check": "mediation[2].Bootstrap_SE",
+      "passed": true
+    },
+    {
+      "check": "mediation[2].Pct_CI_L",
+      "passed": true
+    },
+    {
+      "check": "mediation[2].Pct_CI_U",
+      "passed": true
+    },
+    {
+      "check": "mediation[2].BC_CI_L",
+      "passed": true
+    },
+    {
+      "check": "mediation[2].BC_CI_U",
+      "passed": true
+    },
+    {
+      "check": "mediation[2].Bootstrap_P",
+      "passed": true
+    },
+    {
+      "check": "mediation[2].Reps",
+      "passed": true
+    },
+    {
+      "check": "mediation[2].Attempted_Reps",
+      "passed": true
+    },
+    {
+      "check": "mediation[2].Failed_Reps",
+      "passed": true
+    },
+    {
+      "check": "mediation[2].N",
+      "passed": true
+    },
+    {
+      "check": "mediation[2].Cities",
+      "passed": true
+    },
+    {
+      "check": "mediation[2].Seed",
+      "passed": true
+    },
+    {
+      "check": "mediation[2].Bonferroni_P",
+      "passed": true
+    },
+    {
+      "check": "mediation[2].Rank",
+      "passed": true
+    },
+    {
+      "check": "mediation[2].FDR_Q",
+      "passed": true
+    },
+    {
+      "check": "mediation[2].FDR_reject_005",
+      "passed": true
+    },
+    {
+      "check": "mediation[3].Mediator",
+      "passed": true
+    },
+    {
+      "check": "mediation[3].Path_A",
+      "passed": true
+    },
+    {
+      "check": "mediation[3].Path_B",
+      "passed": true
+    },
+    {
+      "check": "mediation[3].Total",
+      "passed": true
+    },
+    {
+      "check": "mediation[3].Direct",
+      "passed": true
+    },
+    {
+      "check": "mediation[3].Indirect",
+      "passed": true
+    },
+    {
+      "check": "mediation[3].Bootstrap_SE",
+      "passed": true
+    },
+    {
+      "check": "mediation[3].Pct_CI_L",
+      "passed": true
+    },
+    {
+      "check": "mediation[3].Pct_CI_U",
+      "passed": true
+    },
+    {
+      "check": "mediation[3].BC_CI_L",
+      "passed": true
+    },
+    {
+      "check": "mediation[3].BC_CI_U",
+      "passed": true
+    },
+    {
+      "check": "mediation[3].Bootstrap_P",
+      "passed": true
+    },
+    {
+      "check": "mediation[3].Reps",
+      "passed": true
+    },
+    {
+      "check": "mediation[3].Attempted_Reps",
+      "passed": true
+    },
+    {
+      "check": "mediation[3].Failed_Reps",
+      "passed": true
+    },
+    {
+      "check": "mediation[3].N",
+      "passed": true
+    },
+    {
+      "check": "mediation[3].Cities",
+      "passed": true
+    },
+    {
+      "check": "mediation[3].Seed",
+      "passed": true
+    },
+    {
+      "check": "mediation[3].Bonferroni_P",
+      "passed": true
+    },
+    {
+      "check": "mediation[3].Rank",
+      "passed": true
+    },
+    {
+      "check": "mediation[3].FDR_Q",
+      "passed": true
+    },
+    {
+      "check": "mediation[3].FDR_reject_005",
+      "passed": true
+    },
+    {
+      "check": "mediation[4].Mediator",
+      "passed": true
+    },
+    {
+      "check": "mediation[4].Path_A",
+      "passed": true
+    },
+    {
+      "check": "mediation[4].Path_B",
+      "passed": true
+    },
+    {
+      "check": "mediation[4].Total",
+      "passed": true
+    },
+    {
+      "check": "mediation[4].Direct",
+      "passed": true
+    },
+    {
+      "check": "mediation[4].Indirect",
+      "passed": true
+    },
+    {
+      "check": "mediation[4].Bootstrap_SE",
+      "passed": true
+    },
+    {
+      "check": "mediation[4].Pct_CI_L",
+      "passed": true
+    },
+    {
+      "check": "mediation[4].Pct_CI_U",
+      "passed": true
+    },
+    {
+      "check": "mediation[4].BC_CI_L",
+      "passed": true
+    },
+    {
+      "check": "mediation[4].BC_CI_U",
+      "passed": true
+    },
+    {
+      "check": "mediation[4].Bootstrap_P",
+      "passed": true
+    },
+    {
+      "check": "mediation[4].Reps",
+      "passed": true
+    },
+    {
+      "check": "mediation[4].Attempted_Reps",
+      "passed": true
+    },
+    {
+      "check": "mediation[4].Failed_Reps",
+      "passed": true
+    },
+    {
+      "check": "mediation[4].N",
+      "passed": true
+    },
+    {
+      "check": "mediation[4].Cities",
+      "passed": true
+    },
+    {
+      "check": "mediation[4].Seed",
+      "passed": true
+    },
+    {
+      "check": "mediation[4].Bonferroni_P",
+      "passed": true
+    },
+    {
+      "check": "mediation[4].Rank",
+      "passed": true
+    },
+    {
+      "check": "mediation[4].FDR_Q",
+      "passed": true
+    },
+    {
+      "check": "mediation[4].FDR_reject_005",
+      "passed": true
+    },
+    {
+      "check": "mediation[5].Mediator",
+      "passed": true
+    },
+    {
+      "check": "mediation[5].Path_A",
+      "passed": true
+    },
+    {
+      "check": "mediation[5].Path_B",
+      "passed": true
+    },
+    {
+      "check": "mediation[5].Total",
+      "passed": true
+    },
+    {
+      "check": "mediation[5].Direct",
+      "passed": true
+    },
+    {
+      "check": "mediation[5].Indirect",
+      "passed": true
+    },
+    {
+      "check": "mediation[5].Bootstrap_SE",
+      "passed": true
+    },
+    {
+      "check": "mediation[5].Pct_CI_L",
+      "passed": true
+    },
+    {
+      "check": "mediation[5].Pct_CI_U",
+      "passed": true
+    },
+    {
+      "check": "mediation[5].BC_CI_L",
+      "passed": true
+    },
+    {
+      "check": "mediation[5].BC_CI_U",
+      "passed": true
+    },
+    {
+      "check": "mediation[5].Bootstrap_P",
+      "passed": true
+    },
+    {
+      "check": "mediation[5].Reps",
+      "passed": true
+    },
+    {
+      "check": "mediation[5].Attempted_Reps",
+      "passed": true
+    },
+    {
+      "check": "mediation[5].Failed_Reps",
+      "passed": true
+    },
+    {
+      "check": "mediation[5].N",
+      "passed": true
+    },
+    {
+      "check": "mediation[5].Cities",
+      "passed": true
+    },
+    {
+      "check": "mediation[5].Seed",
+      "passed": true
+    },
+    {
+      "check": "mediation[5].Bonferroni_P",
+      "passed": true
+    },
+    {
+      "check": "mediation[5].Rank",
+      "passed": true
+    },
+    {
+      "check": "mediation[5].FDR_Q",
+      "passed": true
+    },
+    {
+      "check": "mediation[5].FDR_reject_005",
+      "passed": true
+    },
+    {
+      "check": "wild_bootstrap.length",
+      "passed": true
+    },
+    {
+      "check": "wild_bootstrap[0].DID_Estimate",
+      "passed": true
+    },
+    {
+      "check": "wild_bootstrap[0].CityCluster_SE",
+      "passed": true
+    },
+    {
+      "check": "wild_bootstrap[0].Conventional_P",
+      "passed": true
+    },
+    {
+      "check": "wild_bootstrap[0].Wild_Webb_P",
+      "passed": true
+    },
+    {
+      "check": "wild_bootstrap[0].Wild_Rademacher_P",
+      "passed": true
+    },
+    {
+      "check": "wild_bootstrap[0].Observations",
+      "passed": true
+    },
+    {
+      "check": "wild_bootstrap[0].Total_Cities",
+      "passed": true
+    },
+    {
+      "check": "wild_bootstrap[0].Treated_Cities",
+      "passed": true
+    },
+    {
+      "check": "wild_bootstrap[0].Control_Cities",
+      "passed": true
+    },
+    {
+      "check": "wild_bootstrap[0].Bootstrap_Reps",
+      "passed": true
+    },
+    {
+      "check": "wild_bootstrap[0].Seed",
+      "passed": true
+    },
+    {
+      "check": "nonlinear.length",
+      "passed": true
+    },
+    {
+      "check": "nonlinear[0].Model",
+      "passed": true
+    },
+    {
+      "check": "nonlinear[0].Coef",
+      "passed": true
+    },
+    {
+      "check": "nonlinear[0].SE",
+      "passed": true
+    },
+    {
+      "check": "nonlinear[0].P",
+      "passed": true
+    },
+    {
+      "check": "nonlinear[0].N",
+      "passed": true
+    },
+    {
+      "check": "nonlinear[0].Base_N",
+      "passed": true
+    },
+    {
+      "check": "nonlinear[0].Clusters",
+      "passed": true
+    },
+    {
+      "check": "nonlinear[0].Parameters",
+      "passed": true
+    },
+    {
+      "check": "nonlinear[0].Params_exceed_clusters",
+      "passed": true
+    },
+    {
+      "check": "nonlinear[0].Wald_unavailable",
+      "passed": true
+    },
+    {
+      "check": "nonlinear[0].Return_code",
+      "passed": true
+    },
+    {
+      "check": "nonlinear[0].Converged",
+      "passed": true
+    },
+    {
+      "check": "nonlinear[0].Separated_obs",
+      "passed": true
+    },
+    {
+      "check": "nonlinear[0].Separated_cities",
+      "passed": true
+    },
+    {
+      "check": "nonlinear[0].Certain_1e10",
+      "passed": true
+    },
+    {
+      "check": "nonlinear[0].Certain_1e6",
+      "passed": true
+    },
+    {
+      "check": "nonlinear[0].Max_obs_prob",
+      "passed": true
+    },
+    {
+      "check": "nonlinear[0].Max_abs_indicator_coef",
+      "passed": true
+    },
+    {
+      "check": "nonlinear[0].Negative_fitted_prob",
+      "passed": true
+    },
+    {
+      "check": "nonlinear[0].Status",
+      "passed": true
+    },
+    {
+      "check": "nonlinear[1].Model",
+      "passed": true
+    },
+    {
+      "check": "nonlinear[1].Coef",
+      "passed": true
+    },
+    {
+      "check": "nonlinear[1].SE",
+      "passed": true
+    },
+    {
+      "check": "nonlinear[1].P",
+      "passed": true
+    },
+    {
+      "check": "nonlinear[1].N",
+      "passed": true
+    },
+    {
+      "check": "nonlinear[1].Base_N",
+      "passed": true
+    },
+    {
+      "check": "nonlinear[1].Clusters",
+      "passed": true
+    },
+    {
+      "check": "nonlinear[1].Parameters",
+      "passed": true
+    },
+    {
+      "check": "nonlinear[1].Params_exceed_clusters",
+      "passed": true
+    },
+    {
+      "check": "nonlinear[1].Wald_unavailable",
+      "passed": true
+    },
+    {
+      "check": "nonlinear[1].Return_code",
+      "passed": true
+    },
+    {
+      "check": "nonlinear[1].Converged",
+      "passed": true
+    },
+    {
+      "check": "nonlinear[1].Separated_obs",
+      "passed": true
+    },
+    {
+      "check": "nonlinear[1].Separated_cities",
+      "passed": true
+    },
+    {
+      "check": "nonlinear[1].Certain_1e10",
+      "passed": true
+    },
+    {
+      "check": "nonlinear[1].Certain_1e6",
+      "passed": true
+    },
+    {
+      "check": "nonlinear[1].Max_obs_prob",
+      "passed": true
+    },
+    {
+      "check": "nonlinear[1].Max_abs_indicator_coef",
+      "passed": true
+    },
+    {
+      "check": "nonlinear[1].Negative_fitted_prob",
+      "passed": true
+    },
+    {
+      "check": "nonlinear[1].Status",
+      "passed": true
+    },
+    {
+      "check": "individual_FE.length",
+      "passed": true
+    },
+    {
+      "check": "individual_FE[0].Coef",
+      "passed": true
+    },
+    {
+      "check": "individual_FE[0].CityCluster_SE",
+      "passed": true
+    },
+    {
+      "check": "individual_FE[0].P",
+      "passed": true
+    },
+    {
+      "check": "individual_FE[0].CI_L",
+      "passed": true
+    },
+    {
+      "check": "individual_FE[0].CI_U",
+      "passed": true
+    },
+    {
+      "check": "individual_FE[0].N",
+      "passed": true
+    },
+    {
+      "check": "individual_FE[0].City_clusters",
+      "passed": true
+    },
+    {
+      "check": "covid.length",
+      "passed": true
+    },
+    {
+      "check": "covid[0].Baseline_N",
+      "passed": true
+    },
+    {
+      "check": "covid[0].Interaction_N",
+      "passed": true
+    },
+    {
+      "check": "covid[0].Interaction_Cities",
+      "passed": true
+    },
+    {
+      "check": "covid[0].Unknown_2020_COVID_N",
+      "passed": true
+    },
+    {
+      "check": "covid[0].Treated_2020_Cities",
+      "passed": true
+    },
+    {
+      "check": "covid[0].All_2020_Cities",
+      "passed": true
+    },
+    {
+      "check": "covid[0].Treated_City_Mean",
+      "passed": true
+    },
+    {
+      "check": "covid[0].Centered_DID",
+      "passed": true
+    },
+    {
+      "check": "covid[0].Centered_DID_SE",
+      "passed": true
+    },
+    {
+      "check": "covid[0].COVID_Centered",
+      "passed": true
+    },
+    {
+      "check": "covid[0].COVID_Centered_SE",
+      "passed": true
+    },
+    {
+      "check": "covid[0].Interaction",
+      "passed": true
+    },
+    {
+      "check": "covid[0].Interaction_SE",
+      "passed": true
+    },
+    {
+      "check": "covid[0].DID_Interaction_Cov",
+      "passed": true
+    },
+    {
+      "check": "covid[0].Uncentered_DID",
+      "passed": true
+    },
+    {
+      "check": "covid[0].Uncentered_Mean_Effect",
+      "passed": true
+    },
+    {
+      "check": "covid[0].Uncentered_Mean_SE",
+      "passed": true
+    },
+    {
+      "check": "event_pretrend_p",
+      "passed": true
+    },
+    {
+      "check": "placebo_5000_valid",
+      "passed": true
+    },
+    {
+      "check": "placebo_10_treated",
+      "passed": true
+    },
+    {
+      "check": "placebo_coefficient_p",
+      "passed": true
+    },
+    {
+      "check": "placebo_studentized_p",
+      "passed": true
+    },
+    {
+      "check": "placebo_independent_stata_check",
+      "passed": true
+    },
+    {
+      "check": "all_mediation_2000_valid",
+      "passed": true
+    },
+    {
+      "check": "mediation_stata.Social.Path_A",
+      "passed": true
+    },
+    {
+      "check": "mediation_stata.Social.Path_B",
+      "passed": true
+    },
+    {
+      "check": "mediation_stata.Social.Total",
+      "passed": true
+    },
+    {
+      "check": "mediation_stata.Social.Direct",
+      "passed": true
+    },
+    {
+      "check": "mediation_stata.Social.N",
+      "passed": true
+    },
+    {
+      "check": "mediation_stata.Social.Cities",
+      "passed": true
+    },
+    {
+      "check": "mediation_product.Social",
+      "passed": true
+    },
+    {
+      "check": "mediation_identity.Social",
+      "passed": true
+    },
+    {
+      "check": "mediation_stata.PM25.Path_A",
+      "passed": true
+    },
+    {
+      "check": "mediation_stata.PM25.Path_B",
+      "passed": true
+    },
+    {
+      "check": "mediation_stata.PM25.Total",
+      "passed": true
+    },
+    {
+      "check": "mediation_stata.PM25.Direct",
+      "passed": true
+    },
+    {
+      "check": "mediation_stata.PM25.N",
+      "passed": true
+    },
+    {
+      "check": "mediation_stata.PM25.Cities",
+      "passed": true
+    },
+    {
+      "check": "mediation_product.PM25",
+      "passed": true
+    },
+    {
+      "check": "mediation_identity.PM25",
+      "passed": true
+    },
+    {
+      "check": "mediation_stata.Green.Path_A",
+      "passed": true
+    },
+    {
+      "check": "mediation_stata.Green.Path_B",
+      "passed": true
+    },
+    {
+      "check": "mediation_stata.Green.Total",
+      "passed": true
+    },
+    {
+      "check": "mediation_stata.Green.Direct",
+      "passed": true
+    },
+    {
+      "check": "mediation_stata.Green.N",
+      "passed": true
+    },
+    {
+      "check": "mediation_stata.Green.Cities",
+      "passed": true
+    },
+    {
+      "check": "mediation_product.Green",
+      "passed": true
+    },
+    {
+      "check": "mediation_identity.Green",
+      "passed": true
+    },
+    {
+      "check": "mediation_stata.Medical.Path_A",
+      "passed": true
+    },
+    {
+      "check": "mediation_stata.Medical.Path_B",
+      "passed": true
+    },
+    {
+      "check": "mediation_stata.Medical.Total",
+      "passed": true
+    },
+    {
+      "check": "mediation_stata.Medical.Direct",
+      "passed": true
+    },
+    {
+      "check": "mediation_stata.Medical.N",
+      "passed": true
+    },
+    {
+      "check": "mediation_stata.Medical.Cities",
+      "passed": true
+    },
+    {
+      "check": "mediation_product.Medical",
+      "passed": true
+    },
+    {
+      "check": "mediation_identity.Medical",
+      "passed": true
+    },
+    {
+      "check": "mediation_stata.SO2.Path_A",
+      "passed": true
+    },
+    {
+      "check": "mediation_stata.SO2.Path_B",
+      "passed": true
+    },
+    {
+      "check": "mediation_stata.SO2.Total",
+      "passed": true
+    },
+    {
+      "check": "mediation_stata.SO2.Direct",
+      "passed": true
+    },
+    {
+      "check": "mediation_stata.SO2.N",
+      "passed": true
+    },
+    {
+      "check": "mediation_stata.SO2.Cities",
+      "passed": true
+    },
+    {
+      "check": "mediation_product.SO2",
+      "passed": true
+    },
+    {
+      "check": "mediation_identity.SO2",
+      "passed": true
+    },
+    {
+      "check": "mediation_stata.Road.Path_A",
+      "passed": true
+    },
+    {
+      "check": "mediation_stata.Road.Path_B",
+      "passed": true
+    },
+    {
+      "check": "mediation_stata.Road.Total",
+      "passed": true
+    },
+    {
+      "check": "mediation_stata.Road.Direct",
+      "passed": true
+    },
+    {
+      "check": "mediation_stata.Road.N",
+      "passed": true
+    },
+    {
+      "check": "mediation_stata.Road.Cities",
+      "passed": true
+    },
+    {
+      "check": "mediation_product.Road",
+      "passed": true
+    },
+    {
+      "check": "mediation_identity.Road",
+      "passed": true
+    },
+    {
+      "check": "restored_mediation_N.Green",
+      "passed": true
+    },
+    {
+      "check": "restored_mediation_cities.Green",
+      "passed": true
+    },
+    {
+      "check": "restored_mediation_N.Road",
+      "passed": true
+    },
+    {
+      "check": "restored_mediation_cities.Road",
+      "passed": true
+    },
+    {
+      "check": "mediation_FDR_recomputed",
+      "passed": true
+    },
+    {
+      "check": "mediation_independent_stata_reference",
+      "passed": true
+    },
+    {
+      "check": "table5_panel_labels",
+      "passed": true
+    },
+    {
+      "check": "table5_original_A_city_cluster.Coef",
+      "passed": true
+    },
+    {
+      "check": "table5_original_A_city_cluster.SE",
+      "passed": true
+    },
+    {
+      "check": "table5_original_A_city_cluster.P",
+      "passed": true
+    },
+    {
+      "check": "table5_original_A_city_cluster.N",
+      "passed": true
+    },
+    {
+      "check": "table5_original_A_city_cluster.Cities",
+      "passed": true
+    },
+    {
+      "check": "table5_original_A_city_cluster.R2",
+      "passed": true
+    },
+    {
+      "check": "table5_original_A_city_cluster.DID_Coef",
+      "passed": true
+    },
+    {
+      "check": "table5_original_A_city_cluster.DID_SE",
+      "passed": true
+    },
+    {
+      "check": "table5_original_A_city_cluster.DID_P",
+      "passed": true
+    },
+    {
+      "check": "table5_original_A_city_cluster.FDR_Q",
+      "passed": true
+    },
+    {
+      "check": "sobel_labels",
+      "passed": true
+    },
+    {
+      "check": "sobel.a",
+      "passed": true
+    },
+    {
+      "check": "sobel.se_a",
+      "passed": true
+    },
+    {
+      "check": "sobel.b",
+      "passed": true
+    },
+    {
+      "check": "sobel.se_b",
+      "passed": true
+    },
+    {
+      "check": "sobel.N_a",
+      "passed": true
+    },
+    {
+      "check": "sobel.N_b",
+      "passed": true
+    },
+    {
+      "check": "sobel.G_a",
+      "passed": true
+    },
+    {
+      "check": "sobel.G_b",
+      "passed": true
+    },
+    {
+      "check": "sobel.Indirect",
+      "passed": true
+    },
+    {
+      "check": "sobel.Sobel_SE",
+      "passed": true
+    },
+    {
+      "check": "sobel.Sobel_z",
+      "passed": true
+    },
+    {
+      "check": "sobel.Sobel_p",
+      "passed": true
+    },
+    {
+      "check": "sobel.Joint_cov",
+      "passed": true
+    },
+    {
+      "check": "sobel.Joint_SE",
+      "passed": true
+    },
+    {
+      "check": "sobel.Joint_z",
+      "passed": true
+    },
+    {
+      "check": "sobel.Joint_p",
+      "passed": true
+    },
+    {
+      "check": "sobel.Joint_se_a",
+      "passed": true
+    },
+    {
+      "check": "sobel.Joint_se_b",
+      "passed": true
+    },
+    {
+      "check": "chow_binary_income.F_stat",
+      "passed": true
+    },
+    {
+      "check": "chow_binary_income.df1",
+      "passed": true
+    },
+    {
+      "check": "chow_binary_income.df2",
+      "passed": true
+    },
+    {
+      "check": "chow_binary_income.P_value",
+      "passed": true
+    },
+    {
+      "check": "chow_binary_income.N",
+      "passed": true
+    },
+    {
+      "check": "chow_all_city_clusters",
+      "passed": true
+    },
+    {
+      "check": "sensitivity_OLS_geometry",
+      "passed": true
+    },
+    {
+      "check": "analysis_sample_flow",
+      "passed": true
+    },
+    {
+      "check": "19_manuscript_tables",
+      "passed": true
+    },
+    {
+      "check": "manuscript_table.Table_1.csv",
+      "passed": true
+    },
+    {
+      "check": "manuscript_table.Table_2.csv",
+      "passed": true
+    },
+    {
+      "check": "manuscript_table.Table_3.csv",
+      "passed": true
+    },
+    {
+      "check": "manuscript_table.Table_4.csv",
+      "passed": true
+    },
+    {
+      "check": "manuscript_table.Table_5.csv",
+      "passed": true
+    },
+    {
+      "check": "manuscript_table.Table_6a.csv",
+      "passed": true
+    },
+    {
+      "check": "manuscript_table.Table_6b.csv",
+      "passed": true
+    },
+    {
+      "check": "manuscript_table.Table_6c.csv",
+      "passed": true
+    },
+    {
+      "check": "manuscript_table.Appendix_Table_A1a.csv",
+      "passed": true
+    },
+    {
+      "check": "manuscript_table.Appendix_Table_A1b.csv",
+      "passed": true
+    },
+    {
+      "check": "manuscript_table.Appendix_Table_A2a.csv",
+      "passed": true
+    },
+    {
+      "check": "manuscript_table.Appendix_Table_A2b.csv",
+      "passed": true
+    },
+    {
+      "check": "manuscript_table.Appendix_Table_A3.csv",
+      "passed": true
+    },
+    {
+      "check": "manuscript_table.Appendix_Table_A4.csv",
+      "passed": true
+    },
+    {
+      "check": "manuscript_table.Appendix_Table_A5a.csv",
+      "passed": true
+    },
+    {
+      "check": "manuscript_table.Appendix_Table_A5b.csv",
+      "passed": true
+    },
+    {
+      "check": "manuscript_table.Appendix_Table_A6.csv",
+      "passed": true
+    },
+    {
+      "check": "manuscript_table.Appendix_Table_A7.csv",
+      "passed": true
+    },
+    {
+      "check": "manuscript_table.Appendix_Table_A8.csv",
+      "passed": true
+    },
+    {
+      "check": "Table1_COVID_N",
+      "passed": true
+    },
+    {
+      "check": "Table1_COVID_SD",
+      "passed": true
+    },
+    {
+      "check": "five_formal_interactions",
+      "passed": true
+    },
+    {
+      "check": "manuscript_figure.Figure1_sample_flow.svg",
+      "passed": true
+    },
+    {
+      "check": "manuscript_figure.Figure2_event_study.png",
+      "passed": true
+    },
+    {
+      "check": "manuscript_figure.Figure3_sensitivity.png",
+      "passed": true
+    },
+    {
+      "check": "manuscript_figure.Appendix_Figure_A1_placebo.png",
+      "passed": true
+    },
+    {
+      "check": "manuscript_figure.Appendix_Figure_A2_balance.png",
+      "passed": true
+    },
+    {
+      "check": "manuscript_figure.Appendix_Figure_A3_overlap.png",
+      "passed": true
+    },
+    {
+      "check": "PSM_global_balance_complete",
+      "passed": true
+    },
+    {
+      "check": "PSM_probit_LR_after",
+      "passed": true
+    },
+    {
+      "check": "PSM_meanbias_before",
+      "passed": true
+    },
+    {
+      "check": "bootstrap_draws.Social",
+      "passed": true
+    },
+    {
+      "check": "bootstrap_draws_SE.Social",
+      "passed": true
+    },
+    {
+      "check": "bootstrap_draws_CI.Social",
+      "passed": true
+    },
+    {
+      "check": "bootstrap_draws_signp.Social",
+      "passed": true
+    },
+    {
+      "check": "bootstrap_draws.PM25",
+      "passed": true
+    },
+    {
+      "check": "bootstrap_draws_SE.PM25",
+      "passed": true
+    },
+    {
+      "check": "bootstrap_draws_CI.PM25",
+      "passed": true
+    },
+    {
+      "check": "bootstrap_draws_signp.PM25",
+      "passed": true
+    },
+    {
+      "check": "bootstrap_draws.Green",
+      "passed": true
+    },
+    {
+      "check": "bootstrap_draws_SE.Green",
+      "passed": true
+    },
+    {
+      "check": "bootstrap_draws_CI.Green",
+      "passed": true
+    },
+    {
+      "check": "bootstrap_draws_signp.Green",
+      "passed": true
+    },
+    {
+      "check": "bootstrap_draws.Medical",
+      "passed": true
+    },
+    {
+      "check": "bootstrap_draws_SE.Medical",
+      "passed": true
+    },
+    {
+      "check": "bootstrap_draws_CI.Medical",
+      "passed": true
+    },
+    {
+      "check": "bootstrap_draws_signp.Medical",
+      "passed": true
+    },
+    {
+      "check": "bootstrap_draws.SO2",
+      "passed": true
+    },
+    {
+      "check": "bootstrap_draws_SE.SO2",
+      "passed": true
+    },
+    {
+      "check": "bootstrap_draws_CI.SO2",
+      "passed": true
+    },
+    {
+      "check": "bootstrap_draws_signp.SO2",
+      "passed": true
+    },
+    {
+      "check": "bootstrap_draws.Road",
+      "passed": true
+    },
+    {
+      "check": "bootstrap_draws_SE.Road",
+      "passed": true
+    },
+    {
+      "check": "bootstrap_draws_CI.Road",
+      "passed": true
+    },
+    {
+      "check": "bootstrap_draws_signp.Road",
+      "passed": true
+    },
+    {
+      "check": "module_completion.sobel_city.log",
+      "passed": true
+    },
+    {
+      "check": "module_completion.figures_appendix.log",
+      "passed": true
+    },
+    {
+      "check": "linear_table.additive_covid.did.Coef",
+      "passed": true
+    },
+    {
+      "check": "linear_table.additive_covid.did.SE",
+      "passed": true
+    },
+    {
+      "check": "linear_table.additive_covid.did.P",
+      "passed": true
+    },
+    {
+      "check": "linear_table.additive_covid.did.CI_L",
+      "passed": true
+    },
+    {
+      "check": "linear_table.additive_covid.did.CI_U",
+      "passed": true
+    },
+    {
+      "check": "linear_table.additive_covid.did.N",
+      "passed": true
+    },
+    {
+      "check": "linear_table.additive_covid.did.Cities",
+      "passed": true
+    },
+    {
+      "check": "linear_table.additive_covid.did.R2",
+      "passed": true
+    },
+    {
+      "check": "linear_table.additive_covid.covidnumber.Coef",
+      "passed": true
+    },
+    {
+      "check": "linear_table.additive_covid.covidnumber.SE",
+      "passed": true
+    },
+    {
+      "check": "linear_table.additive_covid.covidnumber.P",
+      "passed": true
+    },
+    {
+      "check": "linear_table.additive_covid.covidnumber.CI_L",
+      "passed": true
+    },
+    {
+      "check": "linear_table.additive_covid.covidnumber.CI_U",
+      "passed": true
+    },
+    {
+      "check": "linear_table.additive_covid.covidnumber.N",
+      "passed": true
+    },
+    {
+      "check": "linear_table.additive_covid.covidnumber.Cities",
+      "passed": true
+    },
+    {
+      "check": "linear_table.additive_covid.covidnumber.R2",
+      "passed": true
+    },
+    {
+      "check": "linear_table.pooled.did.Coef",
+      "passed": true
+    },
+    {
+      "check": "linear_table.pooled.did.SE",
+      "passed": true
+    },
+    {
+      "check": "linear_table.pooled.did.P",
+      "passed": true
+    },
+    {
+      "check": "linear_table.pooled.did.CI_L",
+      "passed": true
+    },
+    {
+      "check": "linear_table.pooled.did.CI_U",
+      "passed": true
+    },
+    {
+      "check": "linear_table.pooled.did.N",
+      "passed": true
+    },
+    {
+      "check": "linear_table.pooled.did.Cities",
+      "passed": true
+    },
+    {
+      "check": "linear_table.pooled.did.R2",
+      "passed": true
+    },
+    {
+      "check": "linear_table.city.did.Coef",
+      "passed": true
+    },
+    {
+      "check": "linear_table.city.did.SE",
+      "passed": true
+    },
+    {
+      "check": "linear_table.city.did.P",
+      "passed": true
+    },
+    {
+      "check": "linear_table.city.did.CI_L",
+      "passed": true
+    },
+    {
+      "check": "linear_table.city.did.CI_U",
+      "passed": true
+    },
+    {
+      "check": "linear_table.city.did.N",
+      "passed": true
+    },
+    {
+      "check": "linear_table.city.did.Cities",
+      "passed": true
+    },
+    {
+      "check": "linear_table.city.did.R2",
+      "passed": true
+    },
+    {
+      "check": "linear_table.year.did.Coef",
+      "passed": true
+    },
+    {
+      "check": "linear_table.year.did.SE",
+      "passed": true
+    },
+    {
+      "check": "linear_table.year.did.P",
+      "passed": true
+    },
+    {
+      "check": "linear_table.year.did.CI_L",
+      "passed": true
+    },
+    {
+      "check": "linear_table.year.did.CI_U",
+      "passed": true
+    },
+    {
+      "check": "linear_table.year.did.N",
+      "passed": true
+    },
+    {
+      "check": "linear_table.year.did.Cities",
+      "passed": true
+    },
+    {
+      "check": "linear_table.year.did.R2",
+      "passed": true
+    },
+    {
+      "check": "linear_table.twfe.did.Coef",
+      "passed": true
+    },
+    {
+      "check": "linear_table.twfe.did.SE",
+      "passed": true
+    },
+    {
+      "check": "linear_table.twfe.did.P",
+      "passed": true
+    },
+    {
+      "check": "linear_table.twfe.did.CI_L",
+      "passed": true
+    },
+    {
+      "check": "linear_table.twfe.did.CI_U",
+      "passed": true
+    },
+    {
+      "check": "linear_table.twfe.did.N",
+      "passed": true
+    },
+    {
+      "check": "linear_table.twfe.did.Cities",
+      "passed": true
+    },
+    {
+      "check": "linear_table.twfe.did.R2",
+      "passed": true
+    },
+    {
+      "check": "linear_table.lpm.did.Coef",
+      "passed": true
+    },
+    {
+      "check": "linear_table.lpm.did.SE",
+      "passed": true
+    },
+    {
+      "check": "linear_table.lpm.did.P",
+      "passed": true
+    },
+    {
+      "check": "linear_table.lpm.did.CI_L",
+      "passed": true
+    },
+    {
+      "check": "linear_table.lpm.did.CI_U",
+      "passed": true
+    },
+    {
+      "check": "linear_table.lpm.did.N",
+      "passed": true
+    },
+    {
+      "check": "linear_table.lpm.did.Cities",
+      "passed": true
+    },
+    {
+      "check": "linear_table.lpm.did.R2",
+      "passed": true
+    },
+    {
+      "check": "Table3_numeric_fit_columns",
+      "passed": true
+    },
+    {
+      "check": "Table3_PSM_R2",
+      "passed": true
+    },
+    {
+      "check": "FE_overall_R2",
+      "passed": true
+    },
+    {
+      "check": "output_present.full_chow_tests_city_cluster.xlsx",
+      "passed": true
+    },
+    {
+      "check": "output_present.income_missingness_by_wave_treatment.xlsx",
+      "passed": true
+    },
+    {
+      "check": "output_present.retained_vs_income_missing.xlsx",
+      "passed": true
+    },
+    {
+      "check": "output_present.placebo_policy_timing_results.xlsx",
+      "passed": true
+    },
+    {
+      "check": "output_present.prepolicy_psm_balance.xlsx",
+      "passed": true
+    },
+    {
+      "check": "output_present.prepolicy_psm_diagnostics.dta",
+      "passed": true
+    },
+    {
+      "check": "output_present.prepolicy_psm_balance.png",
+      "passed": true
+    },
+    {
+      "check": "output_present.prepolicy_psm_overlap.png",
+      "passed": true
+    },
+    {
+      "check": "output_present.covid_centered_marginal_effects.csv",
+      "passed": true
+    },
+    {
+      "check": "output_present.mechanism_panelAB_city_cluster.xlsx",
+      "passed": true
+    }
+  ],
+  "comparison": "Aggregate reference results only. No old 0507, old charls or individual reference dataset is read. Expected values are checked after estimation, never used for selection."
+}

@@ -1,15 +1,16 @@
-* Maintainer: Xiaoai. Edit input locations and Python executable here.
-* Use forward slashes in paths; keep all quoted paths.
-global rawroot "/Users/apple/Desktop/CHARLS 数据集"
+* Maintainer: Xiaoai. Portable defaults; local overrides are never published.
+global rawroot "/path/to/CHARLS"
 global raw2011 "$rawroot/CHARLS 2011r"
 global raw2013 "$rawroot/CHARLS2013r"
 global raw2015 "$rawroot/CHARLS2015r 2"
 global raw2018 "$rawroot/CHARLS2018r"
 global raw2020 "$rawroot/CHARLS2020r"
 global harmonized "$rawroot/harmonized"
-global harmonizedC "/Users/apple/Desktop/health city_do"
-global python "/Users/apple/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/bin/python3"
-global citybook "/Users/apple/Desktop/Health city/health policy 文献/中国城市数据库6.0版.xlsx"
-global municipal "$rawroot/城市市政公用设施水平、环境、绿地等数据（2002-2022年）.xlsx"
+global harmonizedC "/path/to/harmonized_C"
+global python "python3"
+global citybook "/path/to/中国城市数据库6.0版.xlsx"
+global municipal "$rawroot/Temp_data/城市市政公用设施水平、环境、绿地等数据（2011-2020）.xlsx"
 global covidbook "$rawroot/Temp_data/covid数据.xlsx"
 global pm25 "$rawroot/2011-2020逐年PM2.5.dta"
+capture confirm file "$package_root/config.local.do"
+if !_rc do "$package_root/config.local.do"

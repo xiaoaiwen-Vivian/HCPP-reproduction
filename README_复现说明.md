@@ -1,150 +1,62 @@
-# HCPP：从原始资料到新 0507 的完整复现代码包
+# HCPP：与 final draft0918 对齐的复现代码
 
-维护署名：Xiaoai。版本：2026-09-18，基于 2026-09-17 已核查的 v4 清洗及最终模型。
+维护署名：Xiaoai。版本：2026-09-19。
 
-## 1. 这个包做什么
+## 本机怎么运行
 
-统一入口从五波 CHARLS 原始模块、Harmonized C/D、PSU 和城市来源资料开始，依次生成全新的 `charls.dta`、全新的 `dataset 0507.dta`，再运行最终保留的模型。
-
-**运行输入不包括旧 charls、旧 0507、旧样本名单或旧个人数据。** 每次运行使用一个新建的时间戳目录；不会读取上次运行的数据来替代原始数据重建。输入文件核验不通过时停止，不会改用旧数据。
-
-这是 Stata 18 主控、调用 Python 辅助的流程；不是纯 Stata 程序。五波原始模块与 Harmonized 整理数据都属于上游输入，不能表述为所有 Harmonized 变量都已重新逐题构造。
-
-本 ZIP 是代码包，包含所有正式运行所需的研究 do/Python 文件、Stata 扩展命令快照和核验资料。它不附原始或个人层面数据，也不附旧 0507。原始输入继续从本机现有目录读取。不要把 ZIP 当作包含原始数据的独立数据包。
-
-## 2. 本机最简单的运行方法
-
-在 Stata 18 命令窗口执行：
+在 Stata 18 中将工作目录设为本代码包，然后完整运行：
 
 ```stata
-cd "/Users/apple/Documents/honor thesis/HCPP_从原始数据复现_代码包_20260918"
 do RUN_ALL.do
 ```
 
-如果解压到了其他地方，第一行改成实际解压目录。不要直接运行 `pipeline_v4.do`，不要先打开旧 0507。
+本机目录已配有私有 `config.local.do`。公开上传包不含这个私有文件；其他人需要复制 `config.example.do` 为 `config.local.do` 并填写自己的路径。
 
-只重建数据、不运行模型：
+每次运行都从原始上游资料新建 `charls.dta` 和 `dataset 0507.dta`，后续模型使用本次新生成的0507。不会读取之前的0507、旧分析样本或旧结果来代替计算。只重建数据可运行 `do RUN_ALL.do build`。
 
-```stata
-do RUN_ALL.do build
-```
+需准备五波CHARLS原始模块、Harmonized C/D、PSU以及城市年鉴、市政、COVID和PM2.5输入。共有56个外部输入，清单及哈希见 `verification/INPUT_MANIFEST.json`。Harmonized文件本身也是上游输入，不能将此流程表述为所有Harmonized变量均已逐题从raw重建。
 
-两个入口都会重新从上游原始资料生成数据。统一入口不提供沿用旧数据的 `models` 模式。
+## 与论文的对应
 
-## 3. 换电脑时修改哪里
+- 清洗逻辑沿用已确认版本，包括已修正的2020收入公式。
+- Green/Road使用保存的2011–2020市政工作簿，包含四直辖市。
+- Table5保留原PanelA可用样本和城市聚类；PanelB额外要求结果变量非缺失。
+- A1a是传统Sobel及联合协方差诊断；A1b继续使用共同样本的2,000次城市bootstrap。
+- A3保留五个正式交互，不增加中等收入交互；Table4仍保留中等收入描述分组。
+- A4收入是低收入对中高收入合并，城市聚类。
+- 其余已确认的PSM、事件研究、wild bootstrap、城市安慰剂、COVID中心化、非线性诊断、个体FE和收入缺失比较均保留。
+- 新增统一导出，不再依赖散落在桌面或旧工作目录里的补充脚本。导出19张论文编号CSV表和六幅图。
+- 不新增尚未确认的收入缺失回归、多重插补或其他模型。
 
-只需编辑 `config.do`，填写：
+## 去哪里找结果
 
-- 五波原始模块路径：`raw2011`、`raw2013`、`raw2015`、`raw2018`、`raw2020`；
-- Harmonized D 与 C 的目录：`harmonized`、`harmonizedC`；
-- `rawroot` 下的上游资料布局；
-- 城市数据库、市政数据、COVID、PM2.5 来源文件；
-- Python 可执行文件路径。
+运行结束时会打印本次新建目录，形如 `runs/run_日期_时间/`：
 
-路径保留双引号。当前版本按 macOS 本机路径配置并测试；未宣称已经在 Windows/Linux 或区分大小写的文件系统完成测试。原 do 文件部分原始文件名大小写不同，在其他系统上需对应实际文件名核对。
-
-Stata 需另行安装并持有有效授权；本包不包含 Stata 软件或许可证。Python 验证环境为 3.12.14；依赖固定在 `requirements.txt`。给选定的 Python 环境安装依赖时可执行：
-
-```text
-python3 -m pip install -r requirements.txt
-```
-
-然后将 `config.do` 中的 `global python` 指向安装了这些依赖的解释器。本机当前已具备所需环境，无需重复安装。
-
-扩展命令 sreshape、ftools、reghdfe、psmatch2、pstest、esttab、estpost 和 boottest 已随包保留实际使用的文件；运行时优先读取包内版本。第三方原作者与帮助文件归属保留，不改署名。
-
-## 4. 包内代码的分工
-
-| 文件 | 作用 |
+| 内容 | 本次运行目录下的位置 |
 |---|---|
-| `RUN_ALL.do` | 唯一推荐入口；创建新目录、检查来源和依赖、运行主流程、验证新结果 |
-| `config.do` | 输入路径和 Python 路径配置 |
-| `pipeline_v4.do` | 集成五波清洗、合并、收入修正、新 0507 生成及全部保留的最终分析 |
-| `support/prepare_source_workbooks.py` | 从原 Excel 读取并提取城市、市政、COVID 字段 |
-| `support/city_placebo_fast.py` | 5,000 次城市安慰剂加速计算及与 Stata 抽查比较 |
-| `support/mediation_cluster_bootstrap.py` | 六条路径各 2,000 次城市重抽样及 FDR |
-| `support/preflight.py` | 检查原始来源文件哈希和 Python 依赖版本 |
-| `support/verify_run.py` | 检查本轮新数据及结果，不读取任何旧个人数据 |
-| `vendor/` | 固定的第三方 Stata 扩展命令及帮助文件 |
-| `verification/INPUT_MANIFEST.json` | 56 个外部输入文件的路径模板、大小和 SHA-256 |
-| `verification/EXPECTED_RESULTS.json` | 已核查的汇总数值，仅用于运行结束后比较 |
-| `verification/CODE_ORIGIN.json` | v4 来源、代码哈希及本次路径改造说明 |
-| `verification/STATA_DEPENDENCIES.json` | 第三方依赖快照的来源记录和哈希 |
-| `verification/PACKAGE_TEST.json` | 打包版本完整试跑结论 |
-| `MANIFEST_SHA256.json` | ZIP 所含文件的 SHA-256，便于发现文件变化 |
+| 新建CHARLS面板、0507 | `data/` |
+| 16,661条主分析样本 | `output/primary_estimation_sample.dta` |
+| 19张按论文编号命名的完整精度表 | `output/manuscript_tables/` |
+| 每张表对应哪个结果文件 | `output/manuscript_tables/TABLE_INDEX.csv` |
+| Figure1、Figure2、Figure3及A1/A2/A3 | `output/figures/` |
+| 所有模型原始输出、抽样明细 | `output/` |
+| 分析日志 | `logs/` |
+| 校验结果 | `verification.json`及`verification_passed.ok` |
 
-主流程已整合在一个 do 文件中，不需要按顺序打开多份旧 do 文件。未纳入旧模型草稿和用于组装、修改论文的开发脚本；这些不是从原始数据复现本研究分析的运行依赖。
+Figure1为可编辑SVG；其他五幅图提供PNG、PDF及Stata图形文件。表格CSV可用Excel打开；这是数值复现文件，不会自动改动论文Word。
 
-## 5. 每次运行生成什么
+完整成功的标准是最后出现 `REPRODUCTION_PACKAGE_RUN_VERIFIED`，且 `verification.json`中`passed`为`true`。仅看到Stata进程结束，不能当作全部成功。
 
-所有新文件写入 `runs/run_日期_时间/`：
+## Table1两格应随数据纠正
 
-```text
-runs/run_日期_时间/
-├── input_paths.tsv              本轮实际输入路径
-├── preflight.json               来源文件及 Python 环境检查
-├── preflight_passed.ok          输入检查通过标记
-├── data/
-│   ├── charls.dta               重新合并的五波个人面板
-│   └── dataset 0507.dta         本轮重新生成的 0507
-├── temp/                       分波与城市来源中间文件
-├── output/                     主模型、诊断、图形、抽样明细
-├── logs/
-│   ├── dependencies.log        实际调用的扩展命令位置
-│   └── pipeline_.log           默认完整运行日志
-├── verification.json           本轮数据和最终结果核验
-└── verification_passed.ok      结果核验通过标记
-```
+当前稿COVID Obs=86,696、SD=0.228是旧值。最终数据对应 **86,654、0.230**，代码输出采用正确值。42条COVID缺失属于环境来源记录；主模型16,661条不受影响。本代码不会为迁就旧表格而把缺失值填零。
 
-仅重建模式的日志名为 `pipeline_build.log`。完整模式成功后，Stata 显示 `REPRODUCTION_PACKAGE_RUN_VERIFIED`。Stata 批处理退出状态不能单独证明成功，要查看这个标记及 `verification.json`。
+## 上传GitHub
 
-完整模式的重要结果：
+建议使用单独交付的 `HCPP_GitHub_READY_20260919.zip`：解压后，将其中的文件和真实子文件夹上传到仓库根目录。
 
-- `primary_estimation_sample.dta`：真正进入主模型的样本；
-- `main_DID_city_cluster.xlsx`：主 DID；
-- `main_did_wild_cluster_results.xlsx`：Webb/Rademacher 9,999 次 wild bootstrap；
-- `event_study_city_cluster.xlsx/.png`：事件研究；
-- `prepolicy_means_psmdid_summary.xlsx`：政策前个人均值 PSM-DID；
-- `prepolicy_psm_diagnostics.dta`：匹配个人、得分、支持域及权重；
-- `prepolicy_psm_balance.xlsx/.png`、`prepolicy_psm_overlap.png`：匹配平衡和重叠；
-- `heterogeneity_subgroups_city_cluster.xlsx`、`heterogeneity_interactions_city_cluster.xlsx`：分组与正式交互；
-- `mechanism_panelAB_city_cluster.xlsx`：共同样本路径回归；
-- `city_bootstrap_indirect_FDR.csv/.xlsx/.dta`：城市中介重抽样；
-- `city_bootstrap_draws_*.csv`、`city_bootstrap_city_counts_*.npz`：逐次结果和城市抽样计数；
-- `city_level_placebo_5000.csv/.xlsx/.dta/.png`：城市安慰剂；
-- `city_placebo_assignments.csv/.dta`：所有安慰剂分配；
-- `placebo_policy_timing_results.xlsx`：政策前虚假起点；
-- `covid_centered_model_summary.xlsx`、`covid_centered_marginal_effects.xlsx`：中心化 COVID；
-- `nonlinear_cityFE_citycluster.xlsx`、`nonlinear_separation_cells.csv`：非线性及完全预测诊断；
-- `individual_FE_citycluster.xlsx`：个体固定效应；
-- `income_missingness_by_wave_treatment.xlsx`、`retained_vs_income_missing.xlsx`：收入缺失分析。
+应包含 `RUN_ALL.do`、`pipeline_v4.do`、配置示例、说明文件、`support/`、`vendor/`、`verification/`、依赖清单和校验清单。旧仓库中的同名文件应由新版替换；旧的原始输入清单和试跑核验结果也由本版同名文件替换。旧 `support.zip`、`vendor.zip`、`verification.zip`应删除，改为展开后的文件夹。不要把整个新文件夹嵌套在旧仓库的同级内容之下，造成入口仍指向旧文件。
 
-## 6. 样本与口径
+不要上传本机工作目录里的 `runs/`、`config.local.do`、原始数据、0507、个体分析样本或日志。本次单独制作的上传ZIP已排除这些内容。`.gitignore`不会自动删除以前已经提交的数据；上传前仍应核对仓库文件列表。
 
-新 `charls.dta`：96,628 行。新 0507：86,696 行，其中 1,310 行没有个人—波次标识，是原作者 PM2.5 合并口径保留的环境来源独有记录。
-
-模型明确排除这 1,310 行；有效个人记录 85,386 人次。依次排除已知年龄低于45岁、农村居住、年龄缺失、收入及其他控制缺失、结局缺失，主模型得到 **16,661 人次、7,995 人、94 城市（10处理、84对照）**。
-
-16,661 是实际重建结果，不是筛选目标。`verify_run.py` 中出现该数值仅是模型运行结束后的核验，不会修改数据或决定样本。
-
-保留作者已确认清洗逻辑；明确落实2020年收入六项各计一次、Harmonized C对应2015年、分年PSU编码副本、第五波合并年份、完整年龄条件和13项主回归控制。匹配仅用政策前12项变量个人均值；后续加权DID包含年龄等13项控制。
-
-医疗资源 `hosper` 的单位是**每万人医院／卫生院数**，不是每人；它也不是家庭医疗支出。绿地/道路各15,921条、90城，因来源未覆盖四个直辖市而缺740条主样本记录，不用旧0507回填。
-
-## 7. 结果核验和解释边界
-
-输入文件的哈希若变化，入口会停止，并在 `preflight.json` 中列出差异。需先核对是不是源数据版本变动，不应删除检查以强行获得目标N。
-
-结果核验使用随包的汇总参考值，不读取旧0507或旧个人名单。主DID约−0.08667948，城市SE约0.03304536；政策前PSM N=12,037，系数约−0.08591807。城市安慰剂5,000次均有效，各中介2,000次均有效。
-
-Stata随机种子为2025；中介程序对每条路径使用NumPy PCG64并分别重置2025。两种软件的同名种子不意味着抽样序列相同，因此保存实际分配/抽样计数及版本。
-
-城市安慰剂的加速计算与27次独立Stata回归对照；中介原样本路径系数与Stata一致，并检查总关联=直接关联+路径乘积。仅运行结束不代表识别假设或机制成立：六项间接关联均未通过FDR；正式异质性交互均未在5%显著；两个Logit保留诊断限制；未收敛广义有序Logit不作为稳健性证据。
-
-图形是统计运行输出。论文后期排版重绘和Word修订操作不属于这个数据复现代码包。
-
-## 8. 保存和交接
-
-保留整个代码包目录，不能只拷贝主do文件。其他电脑还需要合法取得同版本上游原始资料，并修改 `config.do`。本包尚未上传外部仓库，没有生成DOI。
-
-首次复现或日后重跑，都用 `RUN_ALL.do`。每次结果写入新目录，历史结果保持可对照。
+代码同步后，再为对应发行版本建立DOI存档。本次不代替你修改GitHub，也不声称已创建DOI。
