@@ -22,7 +22,7 @@ VARIABLES = [
 CONTROLS = [v for _,v in VARIABLES[1:14]]
 
 def main():
-    run=Path(sys.argv[1]);out=run/'output';dest=out/'manuscript_tables';dest.mkdir()
+    run=Path(sys.argv[1]);out=run/'output';dest=out/'manuscript_tables';dest.mkdir(exist_ok=True)
     def read(name):
         path=out/name
         return pd.read_excel(path) if name.endswith('.xlsx') else pd.read_csv(path,na_values=['.'],skipinitialspace=True)
@@ -37,12 +37,12 @@ def main():
         rows=[]
         for label,var in VARIABLES:
             x=df[var].dropna();rows.append(dict(Variable=label,Obs=len(x),Mean=x.mean(),SD=x.std(ddof=1),Min=x.min(),Max=x.max()))
-        save(f'Table_{number}',pd.DataFrame(rows),'new dataset 0507.dta' if number==1 else 'primary_estimation_sample.dta',
-             'Table 1 includes environmental-only merged rows and uses variable-specific nonmissing counts. COVID N=86,654 and SD rounds to 0.230; these correct two stale cells in draft0918.' if number==1 else 'Main analytical sample; pathway-specific availability can differ.')
+        save(f'Table_{number}',pd.DataFrame(rows),'dataset 0507.dta' if number==1 else 'primary_estimation_sample.dta',
+             'Table 1 includes environmental-only merged rows and uses variable-specific nonmissing counts. COVID statistics use observations with available case counts.' if number==1 else 'Main analytical sample; pathway-specific availability can differ.')
     save('Table_3',pd.concat([model(n) for n in ['pooled','city','year','twfe','psm']],ignore_index=True),
          'model_*.csv','Columns are pooled, city FE, year FE, TWFE, and pre-policy PSM-DID; city clustering throughout.')
     save('Table_4',read('heterogeneity_subgroups_city_cluster.xlsx'),'heterogeneity_subgroups_city_cluster.xlsx',
-         'Descriptive subgroup estimates; middle-income subgroup remains here, but is not an extra A3 interaction.')
+         'Descriptive subgroup estimates by income tercile, education, employment, and gender.')
     save('Table_5',read('mechanism_panelAB_city_cluster.xlsx'),'mechanism_panelAB_city_cluster.xlsx',
          'Panel A retains available pathway/control cases even if outcome missing. Panel B also requires outcome. BH-FDR separately by panel.')
     g=read('sensitivity_geometry.csv').iloc[0];f2=(g.b/g.se)**2/g.df
@@ -57,14 +57,14 @@ def main():
         sen.extend([dict(Quantity='R2dz.x',Multiplier=k,Value=rd),dict(Quantity='R2yz.dx',Multiplier=k,Value=ry),dict(Quantity='Bias-adjusted DID',Multiplier=k,Value=adj)])
     save('Table_6a',pd.DataFrame(sen),'sensitivity_geometry.csv','Ordinary-OLS residual geometry; not city-clustered significance sensitivity.')
     robust=pd.concat([model(n) for n in ['twfe','additive_covid','lpm','ologit','logit','individual_fe']],ignore_index=True)
-    robust['Interpretation']=np.where(robust.Model.isin(['ologit','logit']),'Diagnostic only; see nonlinear warnings','Linear sensitivity specification')
-    save('Table_6b',robust,'model_*.csv; nonlinear_cityFE_citycluster.csv','No nonconverged generalized ordered logit is reported. Logit coefficients are not probability-scale effects.')
+    robust['Interpretation']=np.where(robust.Model.isin(['ologit','logit']),'Supplementary log-odds diagnostic; 23 separated observations excluded','Linear sensitivity specification')
+    save('Table_6b',robust,'model_*.csv; nonlinear_cityFE_citycluster.csv','Ordered and binary logit use the same 16,638 observations in 93 cities; log-odds coefficients are supplementary diagnostics. DID-specific threshold test: did_parallel_lines.csv.')
     covid=pd.concat([model('additive_covid'),model('covid_centered')],ignore_index=True)
     margins=read('covid_centered_marginal_effects.csv');margins=margins[margins.Distribution.eq('Treated cities')].copy()
     margins=margins.rename(columns={'Estimate':'Coef','Level':'Term'});margins['Model']='Conditional DID'
     save('Table_6c',pd.concat([covid,margins],ignore_index=True),'model_*covid*.csv; covid_centered_marginal_effects.csv',
          'Centered at unique treated-city 2020 mean. Margins use the complete city-clustered coefficient covariance.')
-    sob=read('sobel_city.csv');save('Appendix_Table_A1a',sob[sob.Sample.eq('original')],
+    sob=read('sobel_city.csv');save('Appendix_Table_A1a',sob[sob.Sample.eq('path_specific')],
          'sobel_city.csv','Traditional Sobel is supplementary, unadjusted, and uses path-specific samples. Joint delta diagnostic is also included.')
     save('Appendix_Table_A1b',read('city_bootstrap_indirect_FDR.csv'),'city_bootstrap_indirect_FDR.csv',
          'Common pathway-specific samples; 2,000 city draws; empirical sign-tail summaries; all six q>0.05.')
@@ -75,12 +75,12 @@ def main():
     save('Appendix_Table_A2a',pd.DataFrame(stats),'prepolicy_means_psmdid_summary.xlsx; prepolicy_psm_global_balance.csv; prepolicy_psm_balance.xlsx',
          'Score-model statistics use logit; balance statistics use the auxiliary probit in pstest. They are distinct.')
     save('Appendix_Table_A2b',b,'prepolicy_psm_balance.xlsx','All matching covariates are 2011/2013/2015 respondent means; max matched bias is slightly over 5%.')
-    save('Appendix_Table_A3',read('heterogeneity_interactions_city_cluster.xlsx'),'heterogeneity_interactions_city_cluster.xlsx','Five approved contrasts only; all p>0.05.')
+    save('Appendix_Table_A3',read('heterogeneity_interactions_city_cluster.xlsx'),'heterogeneity_interactions_city_cluster.xlsx','Five pooled Group x DID contrasts.')
     save('Appendix_Table_A4',read('full_chow_tests_city_cluster.xlsx'),'full_chow_tests_city_cluster.xlsx','Income is low versus combined middle/high; Full Chow tests all specified group intercept/slopes, not DID alone.')
     mis=read('income_missingness_by_wave_treatment.xlsx');mis['Missing_percent']=mis.Income_Missing_Rate*100
     total=pd.DataFrame([dict(iwy='All',treat='All',Eligible_N=mis.Eligible_N.sum(),Income_Missing_N=mis.Income_Missing_N.sum(),Income_Missing_Rate=mis.Income_Missing_N.sum()/mis.Eligible_N.sum(),Missing_percent=100*mis.Income_Missing_N.sum()/mis.Eligible_N.sum())])
-    save('Appendix_Table_A5a',pd.concat([mis,total],ignore_index=True),'income_missingness_by_wave_treatment.xlsx','Known age >=45 and urban residence; unavailable log income includes nonpositive income.')
-    save('Appendix_Table_A5b',read('retained_vs_income_missing.xlsx'),'retained_vs_income_missing.xlsx','Available-case comparisons; difference = income-missing minus retained. Does not identify selection bias in DID.')
+    save('Appendix_Table_A5a',pd.concat([mis,total],ignore_index=True),'income_missingness_by_wave_treatment.xlsx','Denominator: 34,228 urban person-wave observations with known age >=45. Income unavailable: 14,469 (42.3%); includes nonpositive income and missing inputs. The 103 urban observations with missing age are excluded from this denominator.')
+    save('Appendix_Table_A5b',read('retained_vs_income_missing.xlsx')[['Variable','Retained_Mean','Retained_N','Missing_Mean','Missing_N']],'retained_vs_income_missing.xlsx','Descriptive means and variable-specific nonmissing N. Retained group: 16,661 complete cases. Income-unavailable group: 14,469 age-eligible urban observations; outcome observed for 12,507. Counts are computed separately within each group and characteristic.')
     fe=read('individual_FE_citycluster.xlsx');one=primary.groupby('ID').size();fe['Respondents']=(one>1).sum();fe['Singleton_observations_excluded']=(one==1).sum()
     fe['R2']=model('individual_fe').R2.iloc[0]
     save('Appendix_Table_A6',fe,'individual_FE_citycluster.xlsx; primary_estimation_sample.dta','Respondent/year FE, city clustering; gender and age absorbed.')
@@ -99,7 +99,7 @@ def main():
     if set(map(tuple,complete[['ID','iwy']].to_numpy()))!=set(map(tuple,primary[['ID','iwy']].to_numpy())):
         raise ValueError('Flow terminal sample differs from primary estimation sample.')
     frames=[data,person,older,urban,known,income,covars,complete]
-    labels=['Rebuilt merged file','Identified respondent-wave records','After excluding known ages below 45',
+    labels=['Merged CHARLS and city-level dataset','Identified respondent-wave records','After excluding known ages below 45',
             'Urban observations','Known age >=45 and urban','Usable log household income',
             'Complete required covariates','Final analytical sample']
     reasons=['Environment-only records','Known age below 45','Rural residence','Missing age','Unavailable log income','Other missing covariates','Missing outcome']
@@ -123,6 +123,6 @@ def main():
             svg.append(f'<text x="645" y="{y+102}" font-family="Arial,sans-serif" font-size="14">{escape(reasons[i])}: {counts[i]-counts[i+1]:,}</text>')
     svg.append('</svg>');(out/'figures/Figure1_sample_flow.svg').write_text('\n'.join(svg))
     (out/'manuscript_exports.ok').write_text('19 manuscript-numbered aggregate tables and computed flow chart exported.\n')
-    print('MANUSCRIPT_EXPORTS_COMPLETED: 19 tables; sample selection flow calculated from new data.')
+    print('MANUSCRIPT_EXPORTS_COMPLETED: 19 tables; sample selection flow calculated from the run data.')
 
 if __name__=='__main__':main()

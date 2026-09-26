@@ -948,23 +948,15 @@
       "passed": true
     },
     {
-      "check": "nonlinear[0].Certain_1e10",
+      "check": "nonlinear[0].Invalid_fitted_prob",
       "passed": true
     },
     {
-      "check": "nonlinear[0].Certain_1e6",
+      "check": "nonlinear[0].Min_fitted_prob",
       "passed": true
     },
     {
-      "check": "nonlinear[0].Max_obs_prob",
-      "passed": true
-    },
-    {
-      "check": "nonlinear[0].Max_abs_indicator_coef",
-      "passed": true
-    },
-    {
-      "check": "nonlinear[0].Negative_fitted_prob",
+      "check": "nonlinear[0].Max_fitted_prob",
       "passed": true
     },
     {
@@ -1028,23 +1020,15 @@
       "passed": true
     },
     {
-      "check": "nonlinear[1].Certain_1e10",
+      "check": "nonlinear[1].Invalid_fitted_prob",
       "passed": true
     },
     {
-      "check": "nonlinear[1].Certain_1e6",
+      "check": "nonlinear[1].Min_fitted_prob",
       "passed": true
     },
     {
-      "check": "nonlinear[1].Max_obs_prob",
-      "passed": true
-    },
-    {
-      "check": "nonlinear[1].Max_abs_indicator_coef",
-      "passed": true
-    },
-    {
-      "check": "nonlinear[1].Negative_fitted_prob",
+      "check": "nonlinear[1].Max_fitted_prob",
       "passed": true
     },
     {
@@ -1157,6 +1141,54 @@
     },
     {
       "check": "event_pretrend_p",
+      "passed": true
+    },
+    {
+      "check": "nonlinear_N",
+      "passed": true
+    },
+    {
+      "check": "nonlinear_cities",
+      "passed": true
+    },
+    {
+      "check": "nonlinear_exclusions",
+      "passed": true
+    },
+    {
+      "check": "DID_specific_test_sample",
+      "passed": true
+    },
+    {
+      "check": "DID_specific_test_df",
+      "passed": true
+    },
+    {
+      "check": "DID_specific_test_chi2",
+      "passed": true
+    },
+    {
+      "check": "DID_specific_test_p",
+      "passed": true
+    },
+    {
+      "check": "DID_specific_test_fit_valid",
+      "passed": true
+    },
+    {
+      "check": "ordered_independent_analytic_coef",
+      "passed": true
+    },
+    {
+      "check": "ordered_independent_analytic_SE",
+      "passed": true
+    },
+    {
+      "check": "DID_threshold_independent_coefficients",
+      "passed": true
+    },
+    {
+      "check": "DID_threshold_independent_SE",
       "passed": true
     },
     {
@@ -1376,19 +1408,19 @@
       "passed": true
     },
     {
-      "check": "restored_mediation_N.Green",
+      "check": "mediation_N.Green",
       "passed": true
     },
     {
-      "check": "restored_mediation_cities.Green",
+      "check": "mediation_cities.Green",
       "passed": true
     },
     {
-      "check": "restored_mediation_N.Road",
+      "check": "mediation_N.Road",
       "passed": true
     },
     {
-      "check": "restored_mediation_cities.Road",
+      "check": "mediation_cities.Road",
       "passed": true
     },
     {
@@ -1404,43 +1436,43 @@
       "passed": true
     },
     {
-      "check": "table5_original_A_city_cluster.Coef",
+      "check": "table5_panel_city_cluster.Coef",
       "passed": true
     },
     {
-      "check": "table5_original_A_city_cluster.SE",
+      "check": "table5_panel_city_cluster.SE",
       "passed": true
     },
     {
-      "check": "table5_original_A_city_cluster.P",
+      "check": "table5_panel_city_cluster.P",
       "passed": true
     },
     {
-      "check": "table5_original_A_city_cluster.N",
+      "check": "table5_panel_city_cluster.N",
       "passed": true
     },
     {
-      "check": "table5_original_A_city_cluster.Cities",
+      "check": "table5_panel_city_cluster.Cities",
       "passed": true
     },
     {
-      "check": "table5_original_A_city_cluster.R2",
+      "check": "table5_panel_city_cluster.R2",
       "passed": true
     },
     {
-      "check": "table5_original_A_city_cluster.DID_Coef",
+      "check": "table5_panel_city_cluster.DID_Coef",
       "passed": true
     },
     {
-      "check": "table5_original_A_city_cluster.DID_SE",
+      "check": "table5_panel_city_cluster.DID_SE",
       "passed": true
     },
     {
-      "check": "table5_original_A_city_cluster.DID_P",
+      "check": "table5_panel_city_cluster.DID_P",
       "passed": true
     },
     {
-      "check": "table5_original_A_city_cluster.FDR_Q",
+      "check": "table5_panel_city_cluster.FDR_Q",
       "passed": true
     },
     {
@@ -1640,6 +1672,22 @@
       "passed": true
     },
     {
+      "check": "A5b_descriptive_columns",
+      "passed": true
+    },
+    {
+      "check": "A5b_retained_N",
+      "passed": true
+    },
+    {
+      "check": "A5b_income_unavailable_N",
+      "passed": true
+    },
+    {
+      "check": "A5b_outcome_N",
+      "passed": true
+    },
+    {
       "check": "five_formal_interactions",
       "passed": true
     },
@@ -1773,6 +1821,10 @@
     },
     {
       "check": "bootstrap_draws_signp.Road",
+      "passed": true
+    },
+    {
+      "check": "module_completion.did_parallel_lines.log",
       "passed": true
     },
     {
@@ -2060,5 +2112,5 @@
       "passed": true
     }
   ],
-  "comparison": "Aggregate reference results only. No old 0507, old charls or individual reference dataset is read. Expected values are checked after estimation, never used for selection."
+  "comparison": "Aggregate references are checked after estimation; they are not inputs to sample selection or model estimation."
 }

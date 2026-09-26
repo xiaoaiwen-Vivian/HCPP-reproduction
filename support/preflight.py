@@ -32,8 +32,8 @@ def main():
     if versions!=required:errors.append(f'Python dependencies differ: {versions}; expected {required}')
     report={'maintainer':'Xiaoai','passed':not errors,'python':sys.version,'versions':versions,'inputs':records,'errors':errors}
     (run/'preflight.json').write_text(json.dumps(report,ensure_ascii=False,indent=2))
-    if errors:raise SystemExit('\n'.join(errors)+'\nSee preflight.json. No old dataset is substituted.')
+    if errors:raise SystemExit('\n'.join(errors)+'\nSee preflight.json. Required inputs must be available and match the source manifest.')
     (run/'preflight_passed.ok').write_text('External input hashes and Python dependencies verified.\n')
-    print(f'Preflight passed: {len(records)} raw/source files. Output directory is new.')
+    print(f'Preflight passed: {len(records)} raw/source files. Inputs and environment verified.')
 
 if __name__=='__main__':main()

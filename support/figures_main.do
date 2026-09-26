@@ -1,9 +1,8 @@
 * Author: Xiaoai
 * Figure 2: city-clustered event study, 2015 reference wave.
 * Figure 3: omitted-variable sensitivity of the point estimate only.
-* Input is the NEW primary sample produced by the complete raw-data run.
-* This script does not read the old dataset 0507.dta or alter source data.
-* Called by RUN_ALL.do; paths always refer to this new run.
+* Input: primary estimation sample produced by RUN_ALL.do.
+* All inputs and outputs are resolved within the current run directory.
 
 version 18.0
 clear all
@@ -49,8 +48,8 @@ assert r(N) == 7995
 * Figure 2 reads this run's city-clustered event-study output.
 preserve
     import excel "$outpath/event_study_city_cluster.xlsx", firstrow clear
-    local pre_F=Joint_pretrend_F[1]
-    local pre_p=Joint_pretrend_P[1]
+    local pre_F : display %6.4f Joint_pretrend_F[1]
+    local pre_p : display %6.4f Joint_pretrend_P[1]
     export delimited using "`output'/Figure2_event_study_results.csv", replace
     twoway (rcap CI_L CI_U Wave if Wave != 2015, lcolor(navy)) ///
         (scatter Estimate Wave if Wave != 2015, mcolor(navy) msymbol(O)) ///
@@ -61,8 +60,8 @@ preserve
         xtitle("Survey wave") ytitle("Treatment x wave coefficient") ///
         title("Event-study estimates") subtitle("2015 reference wave") ///
         note("City and wave fixed effects and all 13 controls; N = 16,661; 94 city clusters." ///
-             "Bars: 95% confidence intervals using city-clustered SEs and t(93)." ///
-             "Joint pre-policy test: F(2,93) = 0.1695, p = 0.8444. The 2015 point is fixed at zero.", size(vsmall)) ///
+             "Bars: 95% confidence intervals with city-clustered standard errors." ///
+             "Joint pre-policy test: F = `pre_F', p = `pre_p'. The 2015 point is fixed at zero.", size(vsmall)) ///
         graphregion(color(white)) scheme(s2color) xsize(9) ysize(5.4)
     graph save "`output'/Figure2_event_study.gph", replace
     graph export "`output'/Figure2_event_study.png", replace width(3000)

@@ -4,13 +4,13 @@ Maintainer: Xiaoai. All paths are relative to the repository. Outputs are under 
 
 | Manuscript item | Code | Data / calculation |
 |---|---|---|
-| Table 1/2 | `support/export_manuscript.py` | New merged and primary DTA; available-case summaries |
-| Table 3 | `pipeline_v4.do + support/export_estimate.do` | Four main fits and policy-before-only PSM-DID |
+| Table 1/2 | `support/export_manuscript.py` | Merged and primary DTA; available-case summaries |
+| Table 3 | `pipeline_v4.do + support/export_estimate.do` | Four main fits and pre-policy PSM-DID |
 | Table 4 | `pipeline_v4.do` | Nine descriptive subgroup fits |
 | Table 5 | `support/table5_panels.do` | Available-case Panel A; outcome-complete Panel B |
 | Table 6a | `support/figures_main.do + support/export_manuscript.py` | OLS sensitivity geometry and benchmark calculations |
-| Table 6b | `pipeline_v4.do + support/export_estimate.do` | Linear models, nonlinear diagnostics, respondent FE |
-| Table 6c | `pipeline_v4.do` | Additive COVID, centered interaction and lincom margins |
+| Table 6b | `pipeline_v4.do + support/export_estimate.do` | Linear models, nonlinear diagnostics, respondent FE; nonlinear code in support/nonlinear_models.do |
+| Table 6c | `pipeline_v4.do` | Additive COVID, centered interaction and covariance-based marginal associations |
 | A1a | `support/sobel_city.do` | Conventional Sobel and joint city-covariance diagnostic |
 | A1b | `support/mediation_cluster_bootstrap.py` | Six common-sample city-bootstrap indirect associations |
 | A2a/A2b | `pipeline_v4.do` | Pre-policy logit and auxiliary probit/balance diagnostics |
@@ -21,11 +21,13 @@ Maintainer: Xiaoai. All paths are relative to the repository. Outputs are under 
 | A7 | `pipeline_v4.do` | Webb/Rademacher 9,999 replications |
 | A8 | `pipeline_v4.do` | Two pre-policy placebo dates |
 | Figure 1 | `support/export_manuscript.py` | Selection flow recomputed from this run |
-| Figure 2 | `support/figures_main.do` | Reads newly estimated event-study coefficients and city CIs |
+| Figure 2 | `support/figures_main.do` | Reads estimated event-study coefficients and city CIs |
 | Figure 3 | `support/figures_main.do` | Ordinary-OLS point-estimate sensitivity curve |
-| Appendix Figure A1 | `support/figures_appendix.do` | New city placebo coefficient draws |
-| Appendix Figure A2 | `support/figures_appendix.do` | New pre-policy respondent-mean covariate balance |
-| Appendix Figure A3 | `support/figures_appendix.do` | New score distributions with kernel weights |
+| Appendix Figure A1 | `support/figures_appendix.do` | City placebo coefficient draws |
+| Appendix Figure A2 | `support/figures_appendix.do` | Pre-policy respondent-mean covariate balance |
+| Appendix Figure A3 | `support/figures_appendix.do` | Score distributions with kernel weights |
+
+| DID-specific parallel-lines test | `support/did_parallel_lines.do` | Partial proportional odds, two DID restrictions, 93 city clusters |
 
 ## Interpretation
 

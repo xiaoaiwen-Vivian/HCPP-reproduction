@@ -1,6 +1,6 @@
 * Maintainer: Xiaoai. Set Stata's working directory to this package first.
-* Default: raw inputs -> NEW charls -> NEW 0507 -> all retained final analyses.
-* Optional: do RUN_ALL.do build   (rebuild data only).
+* Default: upstream inputs -> charls.dta -> dataset 0507.dta -> manuscript analyses.
+* Optional: do RUN_ALL.do build   (construct data only).
 version 18.0
 clear all
 set more off
@@ -19,7 +19,7 @@ capture mkdir "$package_root/runs"
 global project "$package_root/runs/run_`stamp'"
 capture mkdir "$project"
 if _rc {
-    display as error "Cannot create a fresh run directory; no existing run will be reused."
+    display as error "Cannot create the run directory. Check write access and directory name."
     exit 603
 }
 global code "$package_root/support"
@@ -62,6 +62,7 @@ if "`mode'"=="build" {
 }
 else {
     sysdir set PLUS "$package_root/vendor/stata_plus/"
+    do "$code/did_parallel_lines.do"
     do "$code/sobel_city.do"
     do "$code/figures_main.do"
     do "$code/figures_appendix.do"
@@ -71,4 +72,4 @@ else {
 }
 confirm file "$project/verification_passed.ok"
 display as result "REPRODUCTION_PACKAGE_RUN_VERIFIED"
-display as result "New data and results: $project"
+display as result "Data and results: $project"

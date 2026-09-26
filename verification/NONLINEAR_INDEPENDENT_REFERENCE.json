@@ -1,0 +1,19 @@
+{
+  "source": "Independent Python analytic-likelihood diagnostic, 2026-09-20",
+  "N": 16638,
+  "Cities": 93,
+  "ordered_DID": -0.349436711447518,
+  "ordered_city_SE": 0.14869134812349702,
+  "threshold_DID": [
+    -0.3499125816714713,
+    -0.4270500954457195,
+    -0.1743320848669253
+  ],
+  "threshold_city_SE": [
+    0.15277907982734157,
+    0.16807175887376508,
+    0.10576496905055961
+  ],
+  "DID_Wald_P": 0.17489398,
+  "scope": "DID-specific restriction; other slopes equal"
+}

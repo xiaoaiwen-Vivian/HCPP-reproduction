@@ -11,18 +11,17 @@ if !inlist("`mode'","","build","models") {
     display as error "Supported modes: default, build, models"
     exit 198
 }
-* Xiaoai: 2015 uses Harmonized C; income correction is mandatory.
+* Xiaoai: 2015 education uses Harmonized C; 2020 income includes each component once.
 * 16,661 is a validation result, never a sample-selection target.
 * The anergia item is a proxy; no model here measures suicide directly.
-* Xiaoai: default = raw data -> newly generated 0507 -> final models.
+* Xiaoai: default = upstream inputs -> dataset 0507.dta -> manuscript models.
 * Optional: do this_file.do build (data only); models (use this run's 0507).
-* No old charls.dta, 0727, 1208 or 0507 is an input to the build.
 * Paths are initialized by RUN_ALL.do; output is a fresh run directory.
 if "$package_root"=="" | "$project"=="" {
     display as error "Change to the package folder and run RUN_ALL.do."
     exit 198
 }
-* Harmonized C is required for the author-confirmed 2015 education definition.
+* Harmonized C is required for the 2015 education definition.
 foreach folder in data temp output logs {
     capture mkdir "$project/`folder'"
 }
@@ -2432,154 +2431,8 @@ quietly reghdfe rgoingl_clean did $ctrl if $sample, ///
     absorb(city iwy) vce(cluster city)
 gen byte baseline_sample = e(sample)
 
-* Nonlinear diagnostics: identical 13 controls and primary starting sample.
-* Ordered and binary logit use explicit city and survey-year indicators.
-quietly count if baseline_sample
-local base_n = r(N)
-quietly tabulate city_num if baseline_sample, generate(nlc_)
-quietly tabulate iwy if baseline_sample, generate(nly_)
-drop nlc_1 nly_1
-unab indicators : nlc_* nly_*
-
-* ---------------------------------------------------------------------------
-* Xiaoai 2026-09-16 correction.
-* The earlier version counted "certain" predictions only when the fitted
-* probability of the observed category exceeded 1 - 1e-10.  That cut-off is
-* far stricter than the condition behind Stata's own note
-*     "Note: N observations completely determined. Standard errors questionable."
-* so the summary table recorded 0 while the log recorded 23, and the table
-* therefore described the ordered logit as an unqualified converged model.
-*
-* The structural cause is checked directly and exactly instead of guessing a
-* probability cut-off: an indicator level whose outcome never varies inside the
-* estimation sample is not identified.  ologit keeps those rows and lets the
-* indicator diverge (hence "completely determined"); logit drops the indicator
-* and the rows.  This scan is deterministic and does not depend on a tolerance.
-* ---------------------------------------------------------------------------
-tempvar ymin ymax sepflag septag wymin wymax wsepflag
-bysort city_num: egen double `ymin' = min(cond(baseline_sample, rgoingl_clean, .))
-bysort city_num: egen double `ymax' = max(cond(baseline_sample, rgoingl_clean, .))
-gen byte `sepflag' = (baseline_sample == 1 & `ymin' == `ymax' & !missing(`ymin'))
-bysort iwy: egen double `wymin' = min(cond(baseline_sample, rgoingl_clean, .))
-bysort iwy: egen double `wymax' = max(cond(baseline_sample, rgoingl_clean, .))
-gen byte `wsepflag' = (baseline_sample == 1 & `wymin' == `wymax' & !missing(`wymin'))
-quietly count if `sepflag' | `wsepflag'
-local sep_obs = r(N)
-egen byte `septag' = tag(city_num) if `sepflag'
-quietly count if `septag' == 1
-local sep_cities = r(N)
-display "SEPARATION_SCAN: degenerate-outcome cities=" `sep_cities' ///
-    "; affected observations=" `sep_obs'
-preserve
-    keep if `sepflag' | `wsepflag'
-    quietly count
-    if r(N)>0 {
-        collapse (count) Observations = wave (min) Outcome_min = rgoingl_clean ///
-            (max) Outcome_max = rgoingl_clean (mean) Treated = treat, by(city iwy)
-        export delimited using "$outpath/nonlinear_separation_cells.csv", replace
-        list, clean noobs
-    }
-restore
-
-tempname nlpost
-tempfile nlresults
-postfile `nlpost' str46 Model double Coef double SE double P long N long Base_N ///
-    int Clusters int Parameters byte Params_exceed_clusters byte Wald_unavailable ///
-    int Return_code byte Converged ///
-    long Separated_obs int Separated_cities ///
-    long Certain_1e10 long Certain_1e6 double Max_obs_prob ///
-    double Max_abs_indicator_coef long Negative_fitted_prob ///
-    str512 Status using `nlresults', replace
-
-foreach model in ologit logit {
-    local b=.
-    local se=.
-    local p=.
-    local n=.
-    local g=.
-    local cv=.
-    local c10=.
-    local c6=.
-    local maxpr=.
-    local maxind=.
-    local negprob=.
-    local npar=.
-    local pexc=.
-    local waldna=.
-    local sepo=`sep_obs'
-    local sepc=`sep_cities'
-    local status "Not estimated"
-    ereturn clear
-    if "`model'"=="ologit" {
-        capture noisily ologit rgoingl_clean did $ctrl `indicators' if baseline_sample, vce(cluster city_num) iterate(100)
-        local rc = _rc
-    }
-    else if "`model'"=="logit" {
-        capture noisily logit rgoingl_bin did $ctrl `indicators' if baseline_sample, vce(cluster city_num) iterate(100)
-        local rc = _rc
-    }
-    if `rc'==0 hcpp_export_estimate `model' "did"
-    if `rc'==0 | `rc'==430 {
-        capture local cv = e(converged)
-        capture local n = e(N)
-        capture local g = e(N_clust)
-        capture local b = _b[did]
-        capture local se = _se[did]
-        if `se'>0 & `se'<. local p = 2*normal(-abs(`b'/`se'))
-        local maxind = 0
-        foreach vv of local indicators {
-            capture local cc = abs(_b[`vv'])
-            if !missing(`cc') & `cc' > `maxind' local maxind = `cc'
-        }
-        * Record parameter counts and any unavailable overall Wald test.
-        * The actual cluster count is derived from each estimation sample.
-        capture local npar = colsof(e(b))
-        capture local waldna = missing(e(chi2))
-        if `npar'<. & `g'<. local pexc = (`npar' > `g')
-        local status "Converged; diagnostic specification"
-        if `cv'!=1 local status "Not converged; not robustness evidence"
-        if "`model'"=="ologit" & `cv'==1 {
-            tempvar p1 p2 p3 p4 obsprob
-            quietly predict double `p1' `p2' `p3' `p4' if e(sample), pr
-            gen double `obsprob' = cond(rgoingl_clean==1,`p1',cond(rgoingl_clean==2,`p2',cond(rgoingl_clean==3,`p3',`p4'))) if e(sample)
-            quietly count if `obsprob' > 1-1e-10 & `obsprob' < .
-            local c10 = r(N)
-            quietly count if `obsprob' > 1-1e-6 & `obsprob' < .
-            local c6 = r(N)
-            quietly summarize `obsprob' if e(sample)
-            local maxpr = r(max)
-            drop `p1' `p2' `p3' `p4' `obsprob'
-        }
-        if "`model'"=="logit" & `cv'==1 & `n'<`base_n' {
-            local status "Converged; `=`base_n'-`n'' observations dropped by perfect prediction; clusters `g'; diagnostic only"
-        }
-        * Separation must override any plain "converged" wording.
-        if `sepo' > 0 & `cv'==1 & "`model'"!="logit" {
-            local status "Converged, but `sepc' city/wave cell(s) with an invariant outcome leave `sepo' observations completely determined; Stata reports questionable standard errors for the affected indicator; not unrestricted robustness evidence"
-        }
-        if `pexc'==1 {
-            local status "`status'; parameters (`npar') exceed clusters (`g'), cluster-robust covariance is rank deficient and the overall Wald test is unavailable"
-        }
-    }
-    else local status "Estimation error; not robustness evidence"
-    local mlabel "`model' + city and wave indicators"
-    post `nlpost' ("`mlabel'") (`b') (`se') (`p') (`n') (`base_n') (`g') ///
-        (`npar') (`pexc') (`waldna') (`rc') (`cv') ///
-        (`sepo') (`sepc') (`c10') (`c6') (`maxpr') (`maxind') (`negprob') ("`status'")
-}
-postclose `nlpost'
-preserve
-use `nlresults', clear
-label variable Separated_obs "Observations in city/wave cells with an invariant outcome"
-label variable Certain_1e10 "Fitted probability of observed category > 1-1e-10"
-label variable Certain_1e6 "Fitted probability of observed category > 1-1e-6"
-label variable Negative_fitted_prob "Not applicable to ordered/binary logit"
-label variable Params_exceed_clusters "Estimated parameters exceed city clusters"
-label variable Wald_unavailable "Stata could not report the overall Wald test"
-export excel using "$outpath/nonlinear_cityFE_citycluster.xlsx", firstrow(variables) replace
-export delimited using "$outpath/nonlinear_cityFE_citycluster.csv", replace
-list, clean noobs
-restore
+* Nonlinear models use the primary sample after excluding boundary separation.
+do "$code/nonlinear_models.do"
 
 * --------------------------------------------------------------------------
 * B. Individual fixed-effects sensitivity model; time-invariant and perfectly
@@ -2693,7 +2546,7 @@ preserve
 use `medstata', clear
 export delimited using "$outpath/mediation_observed_stata.csv", replace
 restore
-* Remove stale summaries before the helper; it must create fresh output.
+* Require the helper to create its output during this execution.
 capture erase "$outpath/city_bootstrap_indirect_FDR.csv"
 capture erase "$outpath/city_bootstrap_indirect_FDR.xlsx"
 capture erase "$outpath/city_bootstrap_indirect_FDR.dta"

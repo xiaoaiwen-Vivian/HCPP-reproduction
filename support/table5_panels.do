@@ -1,4 +1,4 @@
-* Xiaoai: Table 5 Panel A retains the original available-case sample.
+* Xiaoai: Table 5 Panel A uses available pathway/control observations.
 * Panel B requires the outcome. Bootstrap path A is estimated separately on
 * the common sample and is not replaced by the larger-sample Panel A estimate.
 tempname mechpost

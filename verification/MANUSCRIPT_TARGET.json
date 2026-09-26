@@ -1,15 +1,35 @@
 {
-  "manuscript": "final draft0918.docx",
-  "sha256": "ad33af685eef2c137e824b1953ed3e545daf28464cbef6a1f1ac2e39f9a13953",
-  "approved_overrides": [
-    "original available-case Panel A with city inference",
-    "A1a traditional Sobel supplementary; A1b city bootstrap primary",
-    "A3 five approved interactions",
+  "manuscript": "final draft0923_开会.docx",
+  "sha256": "5b2837a958a535f356c21a7b59eddd4e3aa0b502d9cb1f2bd273f5f2842761d8",
+  "specifications": [
+    "City-clustered policy-level inference",
+    "Table 5 available-case Panel A and outcome-complete Panel B",
+    "Sobel with path-specific samples; six city-bootstrap indirect associations with FDR",
+    "Five heterogeneity interactions",
     "A4 low versus pooled middle/high income",
-    "no old individual-cluster supplementary S1 tables"
+    "Ordered and binary logit: 16,638 observations, 93 cities, 23 separated observations excluded",
+    "DID-specific proportional-odds Wald test",
+    "A5b descriptive means and variable-specific sample counts"
   ],
-  "known_numeric_corrections": {
-    "Table1_COVID_Obs": 86654,
-    "Table1_COVID_SD_rounded": 0.23
+  "manuscript_numeric_discrepancies": {
+    "Table1_COVID_Obs": {
+      "manuscript": 86696,
+      "output": 86654
+    },
+    "Table1_COVID_SD_rounded": {
+      "manuscript": 0.228,
+      "output": 0.23
+    },
+    "Binary_logit_parameters": {
+      "manuscript": 112,
+      "estimated_parameters": 111,
+      "reason": "The manuscript count includes an omitted all-zero city indicator."
+    },
+    "DID_specific_Wald_chi2_4dp": {
+      "manuscript": 3.4872,
+      "execution": 3.4871,
+      "p_4dp": 0.1749,
+      "reason": "Small difference across numerical likelihood implementations."
+    }
   }
 }

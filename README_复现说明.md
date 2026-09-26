@@ -1,62 +1,59 @@
-# HCPP：与 final draft0918 对齐的复现代码
+# HCPP 论文复现代码
 
-维护署名：Xiaoai。版本：2026-09-19。
+维护署名：Xiaoai。日期：2026-09-26。对应稿件：`final draft0923_开会.docx`。
 
-## 本机怎么运行
+## 运行方法
 
-在 Stata 18 中将工作目录设为本代码包，然后完整运行：
+1. 准备 `verification/INPUT_MANIFEST.json` 列出的56份外部输入，包括五波CHARLS模块、Harmonized C/D、PSU以及城市、市政、COVID和PM2.5资料。数据不随公开代码包提供。
+2. 使用 Stata 18；Python依赖版本见 `requirements.txt`。
+3. 将 `config.example.do` 复制为 `config.local.do`，填入数据路径和Python程序路径。
+4. 在Stata中将工作目录设为本代码包，运行：
 
 ```stata
 do RUN_ALL.do
 ```
 
-本机目录已配有私有 `config.local.do`。公开上传包不含这个私有文件；其他人需要复制 `config.example.do` 为 `config.local.do` 并填写自己的路径。
+程序按顺序生成 `charls.dta`、`dataset 0507.dta`，再运行模型、导出表图并核验。Harmonized数据属于上游输入。每次执行都在独立的 `runs/run_日期_时间/` 目录保存结果。只生成数据时运行 `do RUN_ALL.do build`。
 
-每次运行都从原始上游资料新建 `charls.dta` 和 `dataset 0507.dta`，后续模型使用本次新生成的0507。不会读取之前的0507、旧分析样本或旧结果来代替计算。只重建数据可运行 `do RUN_ALL.do build`。
+成功标准：出现 `REPRODUCTION_PACKAGE_RUN_VERIFIED`，并且运行目录的 `verification.json` 中 `passed` 为 `true`，同时存在 `verification_passed.ok`。输入文件不匹配、模型失败或核验失败会停止流程。
 
-需准备五波CHARLS原始模块、Harmonized C/D、PSU以及城市年鉴、市政、COVID和PM2.5输入。共有56个外部输入，清单及哈希见 `verification/INPUT_MANIFEST.json`。Harmonized文件本身也是上游输入，不能将此流程表述为所有Harmonized变量均已逐题从raw重建。
+## 模型与表格
 
-## 与论文的对应
+- 数据清洗保持既定口径；2020年收入各项只计入一次。主分析16,661条、7,995人、94城。
+- 政策层面主要推断按城市聚类。保留Webb和Rademacher各9,999次wild bootstrap、政策前个人均值PSM、事件研究、正式异质性交互检验、5,000次城市安慰剂及COVID中心化分析。
+- Table5 Panel A使用路径变量和控制变量可用的观测；Panel B还要求结果变量可用。
+- A1a为传统Sobel及联合协方差诊断；A1b为六条路径各2,000次城市bootstrap及FDR。
+- Ordered logit和binary logit均先排除鞍山市23条最低结果类别的完全预测观测，使用16,638条、93城；主线性模型样本不变。
+- DID专项平行线检验在部分比例优势模型中只释放DID的阈值系数，其他斜率保持一致。它不检验所有变量的平行线约束。每次运行由当次ordered logit产生初值。
+- 全部斜率可变的广义有序Logit不列入正式模型结果，也不纳入总入口的常规运行。
+- A5a展示年龄和居住地合格的34,228条中收入不可用的14,469条。A5b仅导出均值及每项变量有效N，保留组为16,661条；收入不可用组的结果变量有效N为12,507。两组独立计数。
+- 正式表格导出不含A5b差值、SE或p值；底层工作簿中的诊断计算仍供核查。
 
-- 清洗逻辑沿用已确认版本，包括已修正的2020收入公式。
-- Green/Road使用保存的2011–2020市政工作簿，包含四直辖市。
-- Table5保留原PanelA可用样本和城市聚类；PanelB额外要求结果变量非缺失。
-- A1a是传统Sobel及联合协方差诊断；A1b继续使用共同样本的2,000次城市bootstrap。
-- A3保留五个正式交互，不增加中等收入交互；Table4仍保留中等收入描述分组。
-- A4收入是低收入对中高收入合并，城市聚类。
-- 其余已确认的PSM、事件研究、wild bootstrap、城市安慰剂、COVID中心化、非线性诊断、个体FE和收入缺失比较均保留。
-- 新增统一导出，不再依赖散落在桌面或旧工作目录里的补充脚本。导出19张论文编号CSV表和六幅图。
-- 不新增尚未确认的收入缺失回归、多重插补或其他模型。
+## 输出位置
 
-## 去哪里找结果
-
-运行结束时会打印本次新建目录，形如 `runs/run_日期_时间/`：
-
-| 内容 | 本次运行目录下的位置 |
+| 内容 | 运行目录内的位置 |
 |---|---|
-| 新建CHARLS面板、0507 | `data/` |
-| 16,661条主分析样本 | `output/primary_estimation_sample.dta` |
-| 19张按论文编号命名的完整精度表 | `output/manuscript_tables/` |
-| 每张表对应哪个结果文件 | `output/manuscript_tables/TABLE_INDEX.csv` |
-| Figure1、Figure2、Figure3及A1/A2/A3 | `output/figures/` |
-| 所有模型原始输出、抽样明细 | `output/` |
-| 分析日志 | `logs/` |
-| 校验结果 | `verification.json`及`verification_passed.ok` |
+| CHARLS面板、0507 | `data/` |
+| 主分析样本 | `output/primary_estimation_sample.dta` |
+| 非线性模型样本 | `output/nonlinear_estimation_sample.dta` |
+| 19张论文编号CSV表 | `output/manuscript_tables/` |
+| 每张表的来源与解释 | `output/manuscript_tables/TABLE_INDEX.csv` |
+| Figure1/2/3和Appendix Figure A1/A2/A3 | `output/figures/` |
+| DID专项平行线检验 | `output/did_parallel_lines.csv` |
+| 全精度结果和抽样明细 | `output/` |
+| 模型日志 | `logs/` |
+| 核验报告 | `verification.json` |
 
-Figure1为可编辑SVG；其他五幅图提供PNG、PDF及Stata图形文件。表格CSV可用Excel打开；这是数值复现文件，不会自动改动论文Word。
+Figure1为SVG；其余图提供PNG/PDF/GPH。CSV保留计算精度，Word中展示时按论文格式舍入。代码不会修改论文文件。
 
-完整成功的标准是最后出现 `REPRODUCTION_PACKAGE_RUN_VERIFIED`，且 `verification.json`中`passed`为`true`。仅看到Stata进程结束，不能当作全部成功。
+## 需与论文核对的数字
 
-## Table1两格应随数据纠正
-
-当前稿COVID Obs=86,696、SD=0.228是旧值。最终数据对应 **86,654、0.230**，代码输出采用正确值。42条COVID缺失属于环境来源记录；主模型16,661条不受影响。本代码不会为迁就旧表格而把缺失值填零。
+1. Table1的COVID有效N为86,654，SD四舍五入为0.230；稿件显示86,696和0.228。42条收入无关的COVID缺失记录属于环境来源记录，主分析样本不受影响。
+2. Binary logit实际估计110个斜率加1个截距，共111个参数。稿件112的计数包含一个被省略的全零城市指标列；去掉这列不会改变拟合模型或DID系数。Ordered logit为113个参数。
+3. DID专项Wald统计量受数值优化与导数计算精度影响，在独立实现之间末位有微小差异，p值按四位小数均为0.1749。程序保存当次计算值，核验使用明确的数值容差。
 
 ## 上传GitHub
 
-建议使用单独交付的 `HCPP_GitHub_READY_20260919.zip`：解压后，将其中的文件和真实子文件夹上传到仓库根目录。
+使用 `HCPP_GitHub_READY_20260926.zip`。解压后将文件及展开的 `support/`、`vendor/`、`verification/` 放到仓库根目录，替换对应内容。
 
-应包含 `RUN_ALL.do`、`pipeline_v4.do`、配置示例、说明文件、`support/`、`vendor/`、`verification/`、依赖清单和校验清单。旧仓库中的同名文件应由新版替换；旧的原始输入清单和试跑核验结果也由本版同名文件替换。旧 `support.zip`、`vendor.zip`、`verification.zip`应删除，改为展开后的文件夹。不要把整个新文件夹嵌套在旧仓库的同级内容之下，造成入口仍指向旧文件。
-
-不要上传本机工作目录里的 `runs/`、`config.local.do`、原始数据、0507、个体分析样本或日志。本次单独制作的上传ZIP已排除这些内容。`.gitignore`不会自动删除以前已经提交的数据；上传前仍应核对仓库文件列表。
-
-代码同步后，再为对应发行版本建立DOI存档。本次不代替你修改GitHub，也不声称已创建DOI。
+公开包不含 `config.local.do`、`runs/`、原始数据、0507、个体分析样本或运行日志。请勿把本机核验目录上传。第三方Stata程序的作者和许可信息保留在 `vendor/`。校验参考数值仅用于估计完成后的核对，不参与样本筛选或模型拟合。
