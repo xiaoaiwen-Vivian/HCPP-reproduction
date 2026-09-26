@@ -37,8 +37,8 @@ def main() -> None:
     city["city"] = city["city"].replace({"北京市": "北京", "天津市": "天津"})
     city.to_csv(outdir / "city_yearbook_extract.csv", index=False, encoding="utf-8-sig")
 
-    # Xiaoai: archived author workbook includes all four municipalities.
-    # Its survey-year rows exactly match the two saved municipal DTA extracts.
+    # Extract road area and green coverage for the five survey years.
+    # The municipal source includes Beijing, Tianjin, Shanghai, and Chongqing.
     muni = pd.read_excel(municipal)
     muni = muni[["iwy", "province", "city", "RoadSurAreaPerCap", "GreenCoverageRateBD"]].copy()
     muni["iwy"] = pd.to_numeric(muni["iwy"], errors="coerce")
@@ -51,7 +51,7 @@ def main() -> None:
         raise ValueError("Municipal source has duplicate city-year keys.")
     municipalities = muni[muni.city.isin(["北京", "天津", "上海市", "重庆市"])]
     if len(municipalities) != 20 or municipalities[["RoadSurAreaPerCap", "GreenCoverageRateBD"]].isna().any().any():
-        raise ValueError("Expected complete archived values for four municipalities and five waves.")
+        raise ValueError("Municipal source must contain nonmissing road and green-coverage values for four municipalities and five survey years.")
     muni.to_csv(outdir / "municipal_extract.csv", index=False, encoding="utf-8-sig")
 
     covid = pd.read_excel(covidbook, usecols=["日期", "地区", "累计确诊"])

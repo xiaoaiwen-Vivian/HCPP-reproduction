@@ -12,7 +12,7 @@ if !inlist("`mode'","","build","models") {
     exit 198
 }
 * Xiaoai: 2015 education uses Harmonized C; 2020 income includes each component once.
-* 16,661 is a validation result, never a sample-selection target.
+* Sample size is checked after the eligibility and complete-case restrictions.
 * The anergia item is a proxy; no model here measures suicide directly.
 * Xiaoai: default = upstream inputs -> dataset 0507.dta -> manuscript models.
 * Optional: do this_file.do build (data only); models (use this run's 0507).
@@ -527,9 +527,7 @@ replace h5hhres=. if mi(count_cb001) | mi(count_cb002) | mi(h5hhresp)
 replace zrbirthyear=ba003_1 if zrbirthyear==.
 
 ***性别
-* 修正：2020 波性别改用 CHARLS 自带的跨波校正变量 xrgender。
-* 原写法 rename ba001 r5gender 取的是本波原始作答；现有 charls.dta 里的
-* gender 实际与 xrgender 逐行一致（96,628 行零差异），ba001 会差 29 行 / 9 人。
+* 2020 波性别使用 CHARLS 的跨波校正变量 xrgender。
 rename xrgender r5gender
 capture rename ba001 ba001_raw2020   //本波原始作答，仅 inw5 判定用过，不再保留
 
@@ -805,9 +803,9 @@ gen hh5cperc = hh5ctot/h5hhres		//人均消费
 
 
 ***受访时间
-* 原始 xiwyear 在第五波 19,395 人里有 34 条缺失、4 条异常（2017×2、2018×2），
-* 其中 2 条会与前面波次形成重复的 ID-iwy 合并键。第五波统一定为 2020，
-* 与现有 charls.dta 的口径一致（该文件第五波 iwy 全部为 2020）。
+* 第五波按调查波次编码为 2020；原始访谈年份另存为 r5iwy_raw。
+* xiwyear 在该波 19,395 人中有 34 条缺失及 4 条非该波年份记录（2017×2、2018×2），
+* 其中 2 条按原始访谈年份合并会产生跨波重复的 ID-iwy 键。
 rename xiwyear r5iwy_raw
 gen r5iwy = 2020 if inw5 == 1
 capture rename xiwmonth r5iwm
@@ -1246,9 +1244,8 @@ forvalues i=1/5 {
 
 ***性别
 *ragender
-* 修正：xrgender 是 CHARLS 对跨波性别冲突做过校正的版本，优先于 harmonized
-* 的 ragender；ragender 只用来补 2020 未参与者。原写法 if mi(ragender) 会让
-* 16 名两处记录冲突者中的 9 人取到未校正值。
+* 性别信息优先采用非缺失的 2020 波 xrgender（此处命名为 r5gender）。
+* 无该校正值时使用 Harmonized CHARLS 的 ragender。
 replace ragender=r5gender if !mi(r5gender)   //2020 校正值优先
 replace ragender=r5gender if mi(ragender)    //新增人群的性别
 recode ragender (1=1) (2=0)  //男1 女0
@@ -1646,8 +1643,7 @@ foreach cc in 西城区 和平区 迁安市 侯马市 包头市 大连市 长春
               银川市 克拉玛依市 {
     replace treat = 1 if city == "`cc'"
 }
-* 上面 38 个城市与 total do.do 第 32–79 行的 38 条 replace 语句完全一致，
-* 只是改写成循环。2016 年国家卫计委首批健康城市试点名单。
+* 按 2016 年国家卫计委首批健康城市试点名单设置处理组标识。
 
 gen byte post = iwy >= 2017
 gen byte did  = treat * post
@@ -1698,8 +1694,8 @@ set type double
 clear
 set more off
 
-* Stata cannot reliably open the 27 MB source workbook on this Mac. The helper
-* extracts only named source columns to UTF-8 CSV; all cleaning remains here.
+* The Python helper extracts specified workbook columns to UTF-8 CSV.
+* Stata performs variable construction and merging below.
 foreach f in city_yearbook_extract municipal_extract covid_city_year_extract {
     capture erase "$temp_data/`f'.csv"
 }
@@ -1806,13 +1802,14 @@ save "$temp_data/medical_household_year.dta", replace
 
 use "$temp_data/panel_merged.dta", clear
 replace city=strtrim(city)
-* Preserve author calendar-year matching; late interviews are reported losses.
+* Retain records assigned to 2011, 2013, 2015, 2018, or 2020.
+* Interviews coded outside these years are excluded and counted in the flow output.
 keep if inlist(iwy,2011,2013,2015,2018,2020)
-post `flowpost' ("03 nominal interview years retained") (_N)
+post `flowpost' ("03 specified survey years") (_N)
 drop if missing(city)
 post `flowpost' ("04 nonempty city") (_N)
 merge m:1 city iwy using "$temp_data/city_yearbook_clean.dta", keep(match) nogen
-post `flowpost' ("05 author yearbook inner join") (_N)
+post `flowpost' ("05 matched city-year yearbook records") (_N)
 merge m:1 city iwy using "$temp_data/municipal_clean.dta", keep(master match) nogen
 merge m:1 householdID iwy using "$temp_data/medical_household_year.dta", keep(master match) nogen
 drop if missing(rwork)
@@ -1821,12 +1818,12 @@ drop if inlist(rgoingl,997,999)
 assert inrange(rgoingl,1,4) | missing(rgoingl)
 post `flowpost' ("07 valid-or-missing outcome codes") (_N)
 merge m:1 city iwy using "$temp_data/pm25_city_year.dta", keep(match using) gen(merge_pm25)
-post `flowpost' ("08 author PM25 match and using rows") (_N)
+post `flowpost' ("08 matched and PM25-only city-year records") (_N)
 gen byte has_person=!missing(ID) & !missing(wave)
 bysort ID wave: assert _N==1 if has_person
 merge m:1 city iwy using "$temp_data/covid_city_year.dta", keep(master match) gen(merge_covid)
 replace covidnumber=0 if iwy<2020
-* Missing 2020 case counts remain unknown; they are not invented zero cases.
+* Missing 2020 case counts remain missing.
 gen double cpi_index=.
 replace cpi_index=1 if iwy==2011
 replace cpi_index=1.053702 if iwy==2013
@@ -2514,8 +2511,8 @@ list, clean noobs
 restore
 
 * City-resampled product indirect effects, 2,000 draws, seed 2025.
-* Xiaoai: independently save all observed Stata paths on the exact common
-* complete-case samples. The Python implementation must reproduce these.
+* Save Stata path estimates on a common complete-case sample per mediator.
+* Compare these estimates with the independent Python calculation.
 tempname medreference
 tempfile medstata
 postfile `medreference' str12 Mediator double Path_A double Path_B double Total double Direct ///
@@ -2891,7 +2888,7 @@ local all_mean = r(mean)
 local all_p75 = r(p75)
 local n_all_city = r(N)
 
-* Xiaoai: retain the uncentered linear combination to verify centering.
+* Check that centered and uncentered parameterizations give the same marginal association.
 quietly lincom did + `tr_mean' * did_covidnumber
 local reference_centered_did=r(estimate)
 local reference_centered_se=r(se)
@@ -2942,7 +2939,7 @@ foreach ll in p25 p50 mean p75 {
 }
 postclose `results'
 
-* Xiaoai: retain model coefficients and sample accounting alongside margins.
+* Export model coefficients, sample counts, and marginal associations.
 local centered_did=_b[did]
 local centered_did_se=_se[did]
 local centered_case=_b[covid_centered]

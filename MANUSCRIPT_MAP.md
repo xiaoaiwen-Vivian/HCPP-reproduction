@@ -1,6 +1,6 @@
 # Manuscript-to-code map
 
-Maintainer: Xiaoai. All paths are relative to the repository. Outputs are under the fresh run directory.
+Maintainer: Xiaoai. All paths are relative to the repository. Outputs are under the run directory.
 
 | Manuscript item | Code | Data / calculation |
 |---|---|---|
@@ -17,16 +17,15 @@ Maintainer: Xiaoai. All paths are relative to the repository. Outputs are under 
 | A3 | `pipeline_v4.do` | Five Group × DID contrasts |
 | A4 | `pipeline_v4.do` | Four Full Chow tests, income binary low vs middle/high |
 | A5a/A5b | `pipeline_v4.do` | Income missingness rates and group comparisons |
-| A6 | `pipeline_v4.do` | Respondent FE, same baseline eligibility |
+| A6 | `pipeline_v4.do` | Respondent FE; urban residence, age >=45, complete model variables |
 | A7 | `pipeline_v4.do` | Webb/Rademacher 9,999 replications |
 | A8 | `pipeline_v4.do` | Two pre-policy placebo dates |
-| Figure 1 | `support/export_manuscript.py` | Selection flow recomputed from this run |
+| Figure 1 | `support/export_manuscript.py` | Selection flow calculated from the run data |
 | Figure 2 | `support/figures_main.do` | Reads estimated event-study coefficients and city CIs |
 | Figure 3 | `support/figures_main.do` | Ordinary-OLS point-estimate sensitivity curve |
 | Appendix Figure A1 | `support/figures_appendix.do` | City placebo coefficient draws |
 | Appendix Figure A2 | `support/figures_appendix.do` | Pre-policy respondent-mean covariate balance |
 | Appendix Figure A3 | `support/figures_appendix.do` | Score distributions with kernel weights |
-
 | DID-specific parallel-lines test | `support/did_parallel_lines.do` | Partial proportional odds, two DID restrictions, 93 city clusters |
 
 ## Interpretation

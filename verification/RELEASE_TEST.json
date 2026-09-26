@@ -75,14 +75,12 @@
     "Invalid_fitted_prob": 0,
     "Scope": "Equality of the DID slope across three thresholds; other slopes constrained equal"
   },
-  "cleaning_executable_lines_unchanged": true,
-  "third_party_vendor_bytes_unchanged": true,
   "published_contents": "Code, documentation, aggregate reference checks only",
   "code_sha256": {
     "RUN_ALL.do": "6564a4d1455541c72e2b8e1c59748f1ec40404294e7e070e08b51cce4799f269",
     "config.do": "add45e605c1c3293173882388be498c23440b8561a02f7104161061ef847f9f6",
     "config.example.do": "f0cc2d2e457067f0a9669e923546d4dc0d6de79406b9922e2e5a0197d9c2de6c",
-    "pipeline_v4.do": "d91dc69bb9e30db4ce9ae68380033790364762ec55429af375d2461455836210",
+    "pipeline_v4.do": "04f9dafbf56782d0cf694f1d7aebd9a1e572ab9a4e96548540fffcdd0c247dff",
     "support/city_placebo_fast.py": "4e91eaa4eba38a60ee4d68068642caac5f721c1d6bb2753eb8717f063043f908",
     "support/did_parallel_lines.do": "4d18cb36d639e6aff8754d9b43c238350139d77d030da687f42b578fca7381c8",
     "support/export_estimate.do": "4233835382a534b0be123ba96501579a6eaee7cae3d782919344c16fd235b9fa",
@@ -92,17 +90,22 @@
     "support/mediation_cluster_bootstrap.py": "e6e6a11e402c2482de73f7aa5c75d2029faf74b9040c940f80d4777fede768ae",
     "support/nonlinear_models.do": "4f183476ae90017e70ae12321f4ef6cd14c6eef3374e63a6d4ce7105158ac5ee",
     "support/preflight.py": "86211a40a7e0c843917423e748a1d8562efac17118ff9bbe73316f37581b5389",
-    "support/prepare_source_workbooks.py": "235779176da13ed956e0b944e702823edbc105327e945f4954f9c52ac49ddd6d",
+    "support/prepare_source_workbooks.py": "1e5e12fc549239a9d4809c0362cb4576452b3e755583e7a5dd4ea50377b2ab76",
     "support/sobel_city.do": "cf6408d4fc5e128d600f7f589033e8979dfb4298aeb8b13611b0bac3aa34bf5b",
     "support/table5_panels.do": "3398a498094e5ce60e29174f9b7f075ca329bdac58ebdc68c34b4ea3c0ed9e93",
     "support/verify_run.py": "98977e5a5747150a132e2f05fc6d508b1dfb97aed062ed260a3771bbb075e8ab"
   },
   "entry_point_success_marker": true,
-  "data_value_comparison": {
-    "charls_rows": 96628,
-    "merged_rows": 86696,
-    "primary_rows": 16661,
-    "matches_confirmed_values": true,
-    "comparison_performed_after_estimation": true
+  "documentation_revision": "2026-09-26 v2",
+  "validation_scope": {
+    "numerical_run": "run_26Sep2026_011843",
+    "documentation_check": "Computational expressions are identical; edits affect comments, documentation, and diagnostic text labels."
+  },
+  "wording_validation": {
+    "scripts_checked": 17,
+    "computational_equivalence": true,
+    "descriptive_label_changes": 3,
+    "error_message_changes": 1,
+    "numerical_checks_passed": 527
   }
 }

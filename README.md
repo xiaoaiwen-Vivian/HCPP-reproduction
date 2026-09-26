@@ -1,6 +1,6 @@
 # HCPP manuscript reproduction
 
-Maintainer: Xiaoai. Release: 2026-09-26. Manuscript target: `final draft0923_开会.docx`.
+Maintainer: Xiaoai. Release: 2026-09-26. Manuscript: `final draft0923_开会.docx`.
 
 The entry point constructs `charls.dta` and `dataset 0507.dta` from the listed upstream inputs, estimates the manuscript models, and exports 19 numbered aggregate tables and six figures. Each execution uses a separate run directory.
 
@@ -8,7 +8,7 @@ The entry point constructs `charls.dta` and `dataset 0507.dta` from the listed u
 
 1. Obtain the licensed CHARLS raw modules, Harmonized CHARLS C/D files, PSU files, and the external city/COVID/PM2.5 source files listed in `verification/INPUT_MANIFEST.json`. These are **not included**. The municipal input must be the **2011–2020 workbook that includes all four municipalities**.
 2. Use licensed Stata 18. Install Python and the exact Python dependencies in `requirements.txt` in your own environment: `python3 -m pip install -r requirements.txt`.
-3. Copy `config.example.do` to `config.local.do`; enter your actual input locations and Python executable. The private override is excluded from GitHub. Do not change the reference hashes just to bypass a source mismatch.
+3. Copy `config.example.do` to `config.local.do`; enter your actual input locations and Python executable. The private override is excluded from GitHub. Input SHA-256 hashes identify the required source files.
 4. Set Stata's working directory to this repository, then run:
 
 ```stata
@@ -23,7 +23,7 @@ Optional data construction:
 do RUN_ALL.do build
 ```
 
-Each invocation makes a fresh directory under `runs/`. Missing or mismatched inputs stop the run. Harmonized files are upstream inputs; the code does not claim to reconstruct every Harmonized variable from raw questionnaires.
+Each invocation makes a fresh directory under `runs/`. Missing or mismatched inputs stop the run. Variables supplied by Harmonized CHARLS are read from the listed Harmonized releases.
 
 ## Directory structure
 
@@ -31,8 +31,8 @@ Each invocation makes a fresh directory under `runs/`. Missing or mismatched inp
 RUN_ALL.do                 Entry point: data construction, models, figures, export, validation
 config.do                  Portable defaults and private override loader
 config.example.do          Copy to config.local.do and edit paths
-pipeline_v4.do             Established cleaning and main city-clustered analyses
-support/                   Python helpers and final supplementary Stata modules
+pipeline_v4.do             Data construction and main city-clustered analyses
+support/                   Python helpers and supplementary Stata modules
 vendor/                    Third-party Stata commands, original attribution preserved
 verification/              Input hashes and aggregate reference results
 requirements.txt           Python versions
@@ -42,19 +42,19 @@ runs/                      Local generated data/results; excluded from upload
 
 `support/`, `vendor/`, and `verification/` must be actual directories, not three unextracted ZIP files. An outer repository ZIP may be extracted once normally.
 
-## Retained specifications
+## Model specifications
 
 - Principal DID: all 13 controls, city/year fixed effects, city-clustered standard errors; 94 cities, including 10 treated and 84 control cities.
 - Wild cluster inference: null-imposed Webb and Rademacher weights, 9,999 replications, seed 2025. Algebraically equivalent `areg` is used for wild bootstrap; conventional uncertainty comes from the primary `reghdfe` fit.
 - Event study: 2015 reference; city-clustered confidence intervals and joint 2011/2013 pre-trend test.
-- PSM: respondent means of 12 covariates from eligible 2011/2013/2015 observations only; Epanechnikov kernel, bandwidth 0.06, common support. Final DID includes age and the full control set. Inference conditions on estimated weights.
+- PSM: respondent means of 12 covariates from eligible 2011/2013/2015 observations only; Epanechnikov kernel, bandwidth 0.06, common support. The weighted DID includes age and the full control set. Inference conditions on estimated weights.
 - Table 5: Panel A uses available pathway/control observations, including missing outcomes. Panel B additionally requires an observed outcome. Six-test BH correction is applied separately within each panel.
 - A1a: traditional Sobel with city-clustered path SEs and path-specific samples, plus a joint-covariance delta-method diagnostic. Both are unadjusted supplementary diagnostics.
-- A1b: 2,000 whole-city resamples for each of six products, using one common sample per pathway and BH correction across products. Table 5 Panel A coefficients are not substituted into these common-sample products. Empirical sign-tail summaries are not null-imposed bootstrap tests.
-- Heterogeneity: nine descriptive subgroup models, but only five pooled Group × DID tests in A3. The middle-income descriptive subgroup remains in Table 4; there is no additional middle-income A3 interaction.
-- A4: low income versus combined middle/high income; other groupings retained. Full Chow tests concern specified intercept/slopes jointly, not the DID coefficient alone.
+- A1b: 2,000 whole-city resamples for each of six products, using one common sample per pathway and BH correction across products. Both path coefficients in each product are estimated on that pathway-specific common sample. Empirical sign-tail summaries are not null-imposed bootstrap tests.
+- Heterogeneity: nine descriptive subgroup models in Table 4 and five pooled Group × DID tests in A3. Table 4 includes all three income terciles.
+- A4: low income versus combined middle/high income, education, employment, and gender. Full Chow tests concern specified intercept/slopes jointly, not the DID coefficient alone.
 - City placebo: 5,000 assignments of 10 out of 94 cities, preserving all within-city observations. Accelerated calculations are checked against Stata draws. Pre-policy placebo dates are also reported.
-- COVID: additive model and interaction centered at 0.1397 thousand cases, the unweighted treated-city mean in 2020; margins use the full clustered coefficient covariance. Unknown case counts are not set to invented zero values.
+- COVID: additive model and interaction centered at 0.1397 thousand cases, the unweighted treated-city mean in 2020; margins use the full clustered coefficient covariance. Unavailable 2020 case counts remain missing; case counts are set to zero in pre-2020 waves.
 - Nonlinear fits: ordered and binary logit with all 13 controls, explicit city/year indicators, and city clustering. Exclude 23 boundary-separated observations from Anshan before both fits, giving 16,638 observations in 93 cities. Coefficients are supplementary log-odds diagnostics. Their overall cluster-robust Wald tests are unavailable.
 - DID-specific proportional odds: a partial proportional-odds likelihood allows only the DID slope to differ across three thresholds. The city-clustered Wald test concerns the two DID restrictions, not all slopes. Starting values are estimated within each execution. Outputs include `did_parallel_lines.csv` and `did_threshold_slopes.csv`.
 - The fully generalized ordered-logit specification is excluded from the reported models because numerical checks did not yield a stable fit with valid category probabilities. It is not executed by the principal reproduction entry point.
@@ -82,7 +82,7 @@ runs/run_DATE_TIME/
   verification_passed.ok
 ```
 
-The tables are numerical exports, not replacements for the manuscript's Word layout. `TABLE_INDEX.csv` identifies the exact model output and interpretation for every table. Figure 1 is editable vector SVG. It is calculated from this run's data, not from hard-coded sample counts. Other figures are drawn from this run's results and saved at publication-friendly resolution.
+The tables are numerical exports, not replacements for the manuscript's Word layout. `TABLE_INDEX.csv` identifies the exact model output and interpretation for every table. Figure 1 is editable vector SVG. Its sample counts are calculated from the data in the run directory. Other figures are drawn from this run's results and saved at publication-friendly resolution.
 
 ## Manuscript alignment notes
 
@@ -93,11 +93,11 @@ The tables are numerical exports, not replacements for the manuscript's Word lay
 
 ## Verification and data access
 
-Input hashes prevent unnoticed source-version changes. Aggregate expected results are used only after estimation for checking, never to select observations, fit coefficients, or construct plotted values. The package checks sample identity/counts, final model values, Table 5 samples, Sobel results, binary-income Chow statistics, bootstrap calculations, and all numbered outputs. See `verification/RELEASE_TEST.json` for the tested release.
+Input hashes prevent unnoticed source-version changes. After estimation, aggregate numerical references are used to validate sample counts, coefficients, and uncertainty calculations. The package checks sample identity/counts, model estimates, Table 5 samples, Sobel results, binary-income Chow statistics, bootstrap calculations, and all numbered outputs. See `verification/RELEASE_TEST.json` for the tested release.
 
-Data and local paths are not published. Exact reproduction requires the listed upstream files; the municipal, COVID, and other externally compiled workbooks are not all automatically downloaded. Researchers must obtain access to the appropriate CHARLS releases and the specified external files. This release has been tested on the author's macOS/Stata 18 system, not on every operating system.
+Data and local paths are not published. Exact reproduction requires the listed upstream files; the municipal, COVID, and other externally compiled workbooks are not all automatically downloaded. Researchers must obtain access to the appropriate CHARLS releases and the specified external files. Testing environment: macOS with Stata/MP 18 and the Python dependencies listed in requirements.txt.
 
-Third-party commands retain their original author and license information in `vendor/`. No third-party code is relabeled as Xiaoai's work. No software-license grant is added to the authors' research code by this packaging step.
+Third-party author and license information is provided in `vendor/`. The research code has no separately specified software license.
 
 A DOI is not yet assigned. Deposit the final synchronized release in a DOI-assigning repository and update the manuscript's Code Availability statement after the DOI exists.
 
